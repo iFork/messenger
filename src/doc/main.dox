@@ -1,0 +1,29 @@
+
+/**
+@mainpage Instigate Build System 
+
+@image html logo.png
+
+@section _mainpage_introduction_ Introduction
+
+This is the README file for Instigate Build System project which provides set
+of makefiles and scripts to compile, test, generate documentations and create
+installation packages for SW/HW projects. Supports multiple languages, GUI
+toolkits, and platforms. 
+
+The library should be extended to support also compilation / simulation for
+Verilog, VHDL.
+ 
+@section _mainpage_directory_structure_ Directory Structure
+
+src/               : The source codes of the test projects.
+
+mkf/               : GNU make scripts which are used for building/running the
+                     project.
+
+makefile           : provides the targets which are described in "USAGE"
+                     section.
+
+*/
+
+// vim:syntax=doxygen:et:shiftwidth=8:tabstop=8:
