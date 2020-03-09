@@ -66,10 +66,7 @@ linker_flags += -lstdc++ -ldl
 # Note: Specifying the library version is not supported.
 #
 libs := \
-	static_test \
-	shared_test \
-	dynamic_test \
-#	client_gui \
+#	gui \
 
 # Library version
 #

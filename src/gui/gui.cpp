@@ -1,4 +1,4 @@
-#include "client_gui.hpp"
+#include "gui.hpp"
 
 #include <iostream>
 

@@ -23,7 +23,7 @@ project_name := "messenger"
 
 # The version of the project
 #
-project_version := 0.0.0
+project_version := 0.0.1
 
 # The absolute path to the directory where the current project is located 
 #
@@ -39,27 +39,22 @@ prefix := $(HOME)
 # projects := src/project1 src/project2
 #
 projects :=  \
-	src/dynamic_test \
-	src/static_test \
-	src/shared_test \
-	src/server \
+	src/commands \
 	src/client \
-	src/client_gui \
-	src/main \
+	src/gui \
+	src/server \
 
 # Prerequisite tools
 preconditions := gcc doxygen ar ln pkg-config lcov
 
 # Prerequisite libraries
 library_preconditions := \
+#	PocoNet \
+#	PocoFoundation \
 
 # Tests which are run after each modification. 
 #
 continuous_tests := \
-	continuous_tests/static_two_outputs \
-	continuous_tests/dynamic_one_output \
-	continuous_tests/static_one_output \
-	continuous_tests/shared_one_output \
 
 # Includes the tests to check the basic principles of the
 # application.  Should be called after each modification to
@@ -104,6 +99,7 @@ include $(mkf_path)/doc.mk
 
 # Dependencies between projects
 #
-src/main: src/dynamic_test src/static_test src/shared_test src/server src/client src/client_gui
+src/client: src/commands src/gui src/server
+src/server: src/commands
 
 
