@@ -44,6 +44,7 @@ uic_flags :=
 #
 cflags += -I$(HOME)/poco/Net/include \
 		-I$(HOME)/poco/Foundation/include \
+		-std=c++17 \
 
 compiler_flags += -I$(HOME)/poco/Net/include \
 				-I$(HOME)/poco/Foundation/include \
