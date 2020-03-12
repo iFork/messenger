@@ -148,7 +148,7 @@ export RPATHS := $(install_path)/$(lib_dir):/lib64:/$(lib_dir)/:$(RPATHS)
 
 compiler_flags:=-pipe \
 		       -x c++ \
-		       -std=c++11 \
+		       -std=c++17 \
 		       -fPIC \
 		       -pedantic \
 		       -W \
