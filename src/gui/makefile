@@ -17,7 +17,9 @@
 #
 
 # The source files under the project.
-cpp_files := gui.cpp \
+cpp_files := login.cpp \
+			chat_box.cpp \
+  			main.cpp \
 
 # The header files under the project, which are supposed to be used by other
 # projects.
@@ -40,9 +42,26 @@ uic_flags :=
 # compiler_flags := $(filter-out -Wshadow -Wconversion, $(compiler_flags))
 # 
 # Note: It is not recommended to overwrite the value (don't use := operator).
-# 
-compiler_flags +=
+#
+cflags += -I. -I. -isystem /usr/include/x86_64-linux-gnu/qt5 \
+		-isystem /usr/include/x86_64-linux-gnu/qt5/QtGui \
+		-isystem /usr/include/x86_64-linux-gnu/qt5/QtGui \
+		-isystem /usr/include/x86_64-linux-gnu/qt5/QtCore \
+		-I. -isystem /usr/include/libdrm \
+		-I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ \
+		-fPIC \
+		-I$(HOME)/poco/Net/include \
+		-I$(HOME)/poco/Foundation/include \
+		-std=c++17 \
 
+compiler_flags += -I. -I. -isystem /usr/include/x86_64-linux-gnu/qt5 \
+				-isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets \
+				-isystem /usr/include/x86_64-linux-gnu/qt5/QtGui \
+				-isystem /usr/include/x86_64-linux-gnu/qt5/QtCore \
+				-I. -isystem /usr/include/libdrm \
+				-I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ \
+				-I$(HOME)/poco/Net/include \
+				-I$(HOME)/poco/Foundation/include \
 
 # The linker flags can be updated/overwritten for the project
 #
@@ -51,7 +70,13 @@ compiler_flags +=
 #
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
-linker_flags += -lstdc++ -ldl
+linker_flags += -lstdc++ -ldl \
+	            -lQt5Widgets \
+				-lQt5Gui \
+				-lQt5Core \
+				-lPocoNet -lPocoFoundation -L$(HOME)/poco/lib/Linux/x86_64 \
+				-lGL \
+				-lpthread \
 
 # The libraries which should be linked to the current project. The link type is
 # specified as a global parameter, except the libraries, which are built as a
@@ -65,7 +90,8 @@ linker_flags += -lstdc++ -ldl
 # 
 # Note: Specifying the library version is not supported.
 #
-libs := \
+libs := commands \
+		client \
 
 # Library version
 #
@@ -91,4 +117,4 @@ lib_version :=
 # (by default $(project_root)/lib/).
 #
 
-include $(mkf_path)/lib.mk
+include $(mkf_path)/exe.mk

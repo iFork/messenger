@@ -18,6 +18,7 @@
 
 # The source files under the project.
 cpp_files := server.cpp \
+			main.cpp \
 
 # The header files under the project, which are supposed to be used by other
 # projects.
@@ -40,9 +41,12 @@ uic_flags :=
 # compiler_flags := $(filter-out -Wshadow -Wconversion, $(compiler_flags))
 # 
 # Note: It is not recommended to overwrite the value (don't use := operator).
-# 
-compiler_flags += -I$(HOME)/poco_lib/Net/include -I$(HOME)/poco_lib/Foundation/include
+#
+cflags += -I$(HOME)/poco/Net/include \
+		-I$(HOME)/poco/Foundation/include \
 
+compiler_flags += -I$(HOME)/poco/Net/include \
+				-I$(HOME)/poco/Foundation/include \
 
 # The linker flags can be updated/overwritten for the project
 #
@@ -51,8 +55,8 @@ compiler_flags += -I$(HOME)/poco_lib/Net/include -I$(HOME)/poco_lib/Foundation/i
 #
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
-linker_flags += -lstdc++ -ldl -lPocoNet -lPocoFoundation -L/$(HOME)/poco_lib/lib/Linux/x86_64 
-
+linker_flags += -lstdc++ -ldl \
+				-lPocoNet -lPocoFoundation -L/$(HOME)/poco/lib/Linux/x86_64 \
 
 # The libraries which should be linked to the current project. The link type is
 # specified as a global parameter, except the libraries, which are built as a
@@ -66,9 +70,7 @@ linker_flags += -lstdc++ -ldl -lPocoNet -lPocoFoundation -L/$(HOME)/poco_lib/lib
 # 
 # Note: Specifying the library version is not supported.
 #
-libs := PocoNet \
-	PocoFoundation \
-
+libs := commands \
 
 # Library version
 #

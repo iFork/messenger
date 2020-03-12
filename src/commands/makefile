@@ -21,7 +21,7 @@ cpp_files := commands.cpp \
 
 # The header files under the project, which are supposed to be used by other
 # projects.
-public_headers := \
+public_headers := commands.hpp \
 
 # Building QT project.
 # TODO: Add detailed comments.
