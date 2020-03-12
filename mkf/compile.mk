@@ -102,10 +102,6 @@ compile: $(rcc_files) $(ui_headers) $(public_headers) $(obj_files)
 
 $(objs_path)/%.o: %.cpp
 	$(echo) "CC	$<"
-	#mb
-	echo compiler_flags:   $(compiler_flags)
-	echo cflags: $(cflags)
-	echo	compile cmd:  $(compiler) -c $(compiler_flags) $(cflags)  $< -o $@
 	$(compiler) -c $(compiler_flags) $(cflags)  $< -o $@
 
 $(objs_path)/%.o: $(objs_path)/%.cpp
@@ -156,7 +152,7 @@ $(pkg_cflags_file) : $(project_makefile)
 	$(echo) "GCF	$(lib_name)"
 	$(echo) -n "cflags := " > $@
 ifneq ($(words $(libs)),0)
-	$(eval cflags := $(shell pkg-config --cflags $(libs)))
+	$(eval cflags += $(shell pkg-config --cflags $(libs))) 
 	$(echo) -n "$(cflags)" >> $@
 endif
 
