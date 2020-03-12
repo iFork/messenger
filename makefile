@@ -49,8 +49,6 @@ preconditions := gcc doxygen ar ln pkg-config lcov
 
 # Prerequisite libraries
 library_preconditions := \
-#	PocoNet \
-#	PocoFoundation \
 
 # Tests which are run after each modification. 
 #
@@ -99,7 +97,7 @@ include $(mkf_path)/doc.mk
 
 # Dependencies between projects
 #
-src/client: src/commands src/gui src/server
+src/gui: src/commands src/client 
 src/server: src/commands
 
 
