@@ -55,6 +55,7 @@ check_libraries:
 				/opt/tpt/lib64/lib$${j}.* \
 				$(SDK_ENV_PATH)/lib/lib$${j}.* \
 				$(SDK_ENV_PATH)/lib64/lib$${j}.* \
+				$(HOME)/poco/lib/Linux/x86_64/lib$${j}.* \
 				2> /dev/null`" ]; \
 		then \
 			$(echo) "found"; \
