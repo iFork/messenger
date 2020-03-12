@@ -9,7 +9,7 @@ class QVBoxLayout;
 
 class Login: public QWidget
 {
-//    Q_OBJECT
+    Q_OBJECT
     public:
         Login(QWidget* parent = 0);
         ~Login(){};

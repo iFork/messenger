@@ -27,7 +27,8 @@ public_headers := \
 
 # Building QT project.
 # TODO: Add detailed comments.
-qt_headers :=
+qt_headers := chat_box.hpp \
+	login.hpp \
 
 moc_flags :=
 
@@ -43,25 +44,16 @@ uic_flags :=
 # 
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
-cflags += -I. -I. -isystem /usr/include/x86_64-linux-gnu/qt5 \
-		-isystem /usr/include/x86_64-linux-gnu/qt5/QtGui \
-		-isystem /usr/include/x86_64-linux-gnu/qt5/QtGui \
-		-isystem /usr/include/x86_64-linux-gnu/qt5/QtCore \
-		-I. -isystem /usr/include/libdrm \
-		-I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ \
-		-fPIC \
+
+cflags += 	-fPIC \
 		-I$(HOME)/poco/Net/include \
 		-I$(HOME)/poco/Foundation/include \
 		-std=c++17 \
 
-compiler_flags += -I. -I. -isystem /usr/include/x86_64-linux-gnu/qt5 \
-				-isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets \
-				-isystem /usr/include/x86_64-linux-gnu/qt5/QtGui \
-				-isystem /usr/include/x86_64-linux-gnu/qt5/QtCore \
-				-I. -isystem /usr/include/libdrm \
-				-I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ \
-				-I$(HOME)/poco/Net/include \
-				-I$(HOME)/poco/Foundation/include \
+compiler_flags += -I$(HOME)/poco/Net/include \
+		  -I$(HOME)/poco/Foundation/include \
+
+compiler_flags := $(filter-out -Werror -Wconversion, $(compiler_flags))
 
 # The linker flags can be updated/overwritten for the project
 #
@@ -71,12 +63,7 @@ compiler_flags += -I. -I. -isystem /usr/include/x86_64-linux-gnu/qt5 \
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
 linker_flags += -lstdc++ -ldl \
-	            -lQt5Widgets \
-				-lQt5Gui \
-				-lQt5Core \
-				-lPocoNet -lPocoFoundation -L$(HOME)/poco/lib/Linux/x86_64 \
-				-lGL \
-				-lpthread \
+		-lPocoNet -lPocoFoundation -L$(HOME)/poco/lib/Linux/x86_64 \
 
 # The libraries which should be linked to the current project. The link type is
 # specified as a global parameter, except the libraries, which are built as a
@@ -91,7 +78,10 @@ linker_flags += -lstdc++ -ldl \
 # Note: Specifying the library version is not supported.
 #
 libs := commands \
-		client \
+	client \
+	Qt5Gui \
+	Qt5Widgets \
+	Qt5Core \
 
 # Library version
 #

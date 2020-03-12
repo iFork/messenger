@@ -48,7 +48,9 @@ projects :=  \
 preconditions := gcc doxygen ar ln pkg-config lcov
 
 # Prerequisite libraries
-library_preconditions := \
+library_preconditions := Qt5Gui \
+			Qt5Widgets \
+			Qt5Core \
 
 # Tests which are run after each modification. 
 #

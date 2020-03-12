@@ -33,7 +33,7 @@ class QLabel;
 
 class ChatBox: public QWidget
 {
-//    Q_OBJECT
+    Q_OBJECT
     public:
     //Constructor
     ChatBox(QWidget* parent = 0);
