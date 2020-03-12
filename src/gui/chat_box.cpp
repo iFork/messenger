@@ -1,4 +1,17 @@
+/**
+ * @file /chat_box.hpp
+ *
+ * @author ITC students, 2020
+ * E-mail: xxx@xxx.xxx
+ * 134/1 Tsarav Aghbyur St.,
+ * Yerevan, 0052, Armenia
+ * Tel:  xxxxxx
+ */
+
+// Headers from this project
 #include "chat_box.hpp"
+
+// Forward declarations
 #include <QGridLayout>
 #include <QMenuBar>
 #include <QMenu>
@@ -10,9 +23,18 @@
 #include <QScrollArea>
 #include <QFrame>
 
+// it will be removed as soon as the users' list
+// with add/remove option will be implemented
 const int FRIENDS_COUNT = 30;
 
-ChatterBox::ChatterBox(QWidget* parent): QWidget(parent)
+/**
+ * ChatBox constructor that displays the interface of the main window
+ * of the logged in user's data (user name, messages).
+ * It gives opportunity to send/receive  messages with the other user.
+ * There are many other options that can be implemented by request later on.
+ */
+
+ChatBox::ChatBox(QWidget* parent): QWidget(parent)
 {
     m_glayout = new QGridLayout(this);
     m_menu_bar = new QMenuBar(this);
@@ -43,12 +65,12 @@ ChatterBox::ChatterBox(QWidget* parent): QWidget(parent)
     m_name->setStyleSheet("border: 1px solid white;");
 
     m_video = new QLabel(this);
-    m_video->setStyleSheet("image:url(img/video_call.png);");
-    m_video->setMinimumSize(30, 30);
+    m_video->setStyleSheet("image:url(src/res/img/video_camera.png);");
+    m_video->setMinimumSize(10, 10);
 
     m_voice = new QLabel(this);
-    m_voice->setStyleSheet("image:url(img/voice_call.png);");
-    m_voice->setMinimumSize(30, 30);
+    m_voice->setStyleSheet("image:url(src/res/img/voice_call.png);");
+    m_voice->setMinimumSize(10, 10);
 
     m_new_group = new QPushButton("New Group", this);
 
@@ -57,14 +79,14 @@ ChatterBox::ChatterBox(QWidget* parent): QWidget(parent)
     m_attach = new QLabel(this);
     m_smile = new QLabel(this);
 
-    m_gallery->setStyleSheet("image:url(img/gallery.png);");
-    m_gallery->setMinimumSize(30, 30);
-    m_camera->setStyleSheet("image:url(img/camera.png);");
-    m_camera->setMinimumSize(30, 30);
-    m_attach->setStyleSheet("image:url(img/attach.png);");
-    m_attach->setMinimumSize(30, 30);
-    m_smile->setStyleSheet("image:url(img/smiley.png);");
-    m_smile->setMinimumSize(30, 30);
+    m_gallery->setStyleSheet("image:url(src/res/img/gallery.png);");
+    m_gallery->setMinimumSize(10, 10);
+    m_camera->setStyleSheet("image:url(src/res/img/camera.png);");
+    m_camera->setMinimumSize(10, 10);
+    m_attach->setStyleSheet("image:url(src/res/img/attach.png);");
+    m_attach->setMinimumSize(10, 10);
+    m_smile->setStyleSheet("image:url(src/res/img/smiley.png);");
+    m_smile->setMinimumSize(10, 10);
 
     QScrollArea* scroll_area = new QScrollArea(this);
     QFrame* frame = new QFrame();
@@ -76,14 +98,16 @@ ChatterBox::ChatterBox(QWidget* parent): QWidget(parent)
         if (i % 4) {
             QLabel* offline_label = new QLabel("", this);
             offline_label->setText("USER " + QString::number(i));
-            offline_label->setStyleSheet("border: 2px dotted gray;\
+            offline_label->setStyleSheet("border: 2px solid gray;\
+                                          border-radius: 10px;\
                                           background: white;\
                                           color: gray");
             layout->addWidget(offline_label);
         } else {
             QLabel* online_label  = new QLabel("", this);
             online_label->setText("USER " + QString::number(i) + "*");
-            online_label->setStyleSheet("border: 2px dotted gray;\
+            online_label->setStyleSheet("border: 2px solid gray;\
+                                         border-radius: 10px;\
                                          background: gray;\
                                          color: white");
             layout->addWidget(online_label);
@@ -99,6 +123,7 @@ ChatterBox::ChatterBox(QWidget* parent): QWidget(parent)
                                   border: 2px solid gray;\
                                   background: gray;\
                                   color: white");
+    //elements have been positioned using grid layout
     m_glayout->addWidget(m_menu_bar, 0, 0);
     m_glayout->addWidget(scroll_area, 1, 0, 13, 3);
     m_glayout->addWidget(m_name, 1, 3, 1, 2);
