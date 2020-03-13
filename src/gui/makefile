@@ -63,7 +63,7 @@ compiler_flags := $(filter-out -Werror -Wconversion, $(compiler_flags))
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
 linker_flags += -lstdc++ -ldl \
-		-lPocoNet -lPocoFoundation -L$(HOME)/poco/lib/Linux/x86_64 \
+		-lPocoNet -lPocoFoundation -L$(HOME)/poco/lib/Linux/i686 -L$(HOME)/poco/lib/Linux/x86_64 \
 
 # The libraries which should be linked to the current project. The link type is
 # specified as a global parameter, except the libraries, which are built as a
