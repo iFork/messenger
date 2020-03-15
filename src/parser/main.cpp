@@ -5,13 +5,13 @@
 using namespace Poco::JSON;
 using namespace Poco::Dynamic;
 
-int main(int argc, char** argv) {
+int main() {
 	std::string json_file;
 	std::string file;
 	// insted of writing Poco::JSON::Parser used Parser
 	//
 	Parser parse_from;
-	File_writer w("./w_file.json");
+	File_writer w("./json_files/w_file.json");
 	file_writer(w, file, json_file);
 	// Parse the JSON and get the Results
 	//insted of writing Poco::Dynamic::Var used Var

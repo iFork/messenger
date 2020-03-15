@@ -17,11 +17,12 @@
 #
 
 # The source files under the project.
-cpp_files := client.cpp \
+cpp_files := main.cpp \
+			 json_parser.cpp \
 
 # The header files under the project, which are supposed to be used by other
 # projects.
-public_headers := client.hpp \
+public_headers :=
 
 # Building QT project.
 # TODO: Add detailed comments.
@@ -42,12 +43,17 @@ uic_flags :=
 # Note: It is not recommended to overwrite the value (don't use := operator).
 # 
 cflags += -I$(HOME)/poco/Net/include \
-		-I$(HOME)/poco/Foundation/include \
-		-std=c++17 \
+		  -I$(HOME)/poco/JSON/include \
+		  -I$(HOME)/poco/Foundation/include \
+		  -L$(HOME)/poco/lib/Linux/$(architecture) \
+		  -std=c++17 \
 
 compiler_flags += -I$(HOME)/poco/Net/include \
-				-I$(HOME)/poco/Foundation/include \
+				  -I$(HOME)/poco/JSON/include \
+				  -I$(HOME)/poco/Foundation/include \
+				  -L$(HOME)/poco/lib/Linux/$(architecture) \
 
+compiler_flags := $(filter-out -Werror -Wconversion, $(compiler_flags))
 
 # The linker flags can be updated/overwritten for the project
 #
@@ -58,9 +64,10 @@ compiler_flags += -I$(HOME)/poco/Net/include \
 #
 architecture := $(shell uname -m)
 linker_flags += -lstdc++ -ldl \
-				-lPocoNet -lPocoFoundation\
+				-lPocoNet \
+				-lPocoFoundation \
+				-lPocoJSON \
 				-L$(HOME)/poco/lib/Linux/$(architecture) \
-				
 
 # The libraries which should be linked to the current project. The link type is
 # specified as a global parameter, except the libraries, which are built as a
@@ -74,7 +81,8 @@ linker_flags += -lstdc++ -ldl \
 # 
 # Note: Specifying the library version is not supported.
 #
-libs := commands \
+
+libs :=	#x$(HOME)/Desktop/chem_jogum/poco/lib/Linux/$(architecture) \
 
 # Library version
 #
@@ -100,4 +108,4 @@ lib_version :=
 # (by default $(project_root)/lib/).
 #
 
-include $(mkf_path)/lib.mk
+include $(mkf_path)/exe.mk

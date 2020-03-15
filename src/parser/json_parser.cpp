@@ -79,7 +79,7 @@ bool file_reader(File_reader& f, std::string& file) {
 }
 
 bool file_writer(File_writer& w, std::string& file, std::string& json_format) {
-	File_reader f("./file.txt");
+	File_reader f("./txt_files/file.txt");
 	while(file_reader(f, file)) {
 		w.write_string(file);
 		json_format = file;

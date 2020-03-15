@@ -43,14 +43,15 @@ projects :=  \
 	src/client \
 	src/gui \
 	src/server \
+	src/parser\
 
 # Prerequisite tools
 preconditions := gcc doxygen ar ln pkg-config lcov
 
 # Prerequisite libraries
 library_preconditions := Qt5Gui \
-			Qt5Widgets \
-			Qt5Core \
+						 Qt5Widgets \
+						 Qt5Core \
 
 # Tests which are run after each modification. 
 #
@@ -101,5 +102,3 @@ include $(mkf_path)/doc.mk
 #
 src/gui: src/commands src/client 
 src/server: src/commands
-
-
