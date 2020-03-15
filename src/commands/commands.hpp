@@ -1,5 +1,20 @@
+#ifndef COMMANDS
+#define COMMANDS
 
+#include "Poco/Dynamic/Var.h"
+#include "Poco/JSON/Object.h"
+#include "Poco/JSON/Parser.h"
+#include "Poco/JSON/ParseHandler.h"
+//#include "Poco/JSON/JSONException.h"
+//#include "Poco/Environment.h"
+//#include "Poco/Path.h"
+//#include "Poco/File.h"
+//#include "Poco/FileStream.h"
+//#include "Poco/StreamCopier.h"
+
+//#include <iostream>
 #include <string>
+#include <cassert>
 
 //Command Category
 class command_cat_t {
@@ -12,46 +27,70 @@ public:
 		login_response,
 		add_contact_request,
 		add_contact_response,
-		send_msg_request,
-		send_msg_response,
-		send_file_request,
-		send_file_response
+		msg_out_request,
+		msg_out_response,
+		file_out_request,
+		file_out_response
 	};
 private:	
 	cmd_cats_t m_cmd_cat;
 public:
 //C-tors
 	command_cat_t();
-	command_cat_t(cmd_cats_t cmd_c);
+	command_cat_t(const cmd_cats_t cmd_c);
+	command_cat_t(const int cmd_c);
 //Accessors
 	cmd_cats_t get();
 //Helpers
 	std::string to_string();
+	int to_int();
 };
 
-typedef command_cat_t::cmd_cats_t cmd_t;
+typedef command_cat_t::cmd_cats_t cmds_t;
+
+//Forward declarations
+struct msg_out_t;
+struct msg_t;
+struct msg_in_t;
 
 class command_t {
 
 private:
-	std::string m_user_ID;
+//Private Data Members
 	command_cat_t m_cmd_cat;
-	std::string m_cmd_val;
+	Poco::JSON::Object::Ptr m_cmd_val;
 public:
 //@section Special member functions
 	command_t();
-	command_t(std::string user_ID, command_cat_t cmd_cat, std::string cmd_val);
-	command_t(std::string cmd);
-
+	/*
+	@brief parsing string into command_t object
+	*/
+	command_t(const std::string& cmd);
+	/*
+	@brief 
+	*/
+	command_t(const command_cat_t cmd_cat, 
+			const Poco::JSON::Object::Ptr cmd_val);
+	/*
+	@brief parsing msg_out_t into command_t object
+	*/
+	command_t(const msg_out_t& msg_out);
+	/*
+	@brief
+	*/
+			
 //	~command_t() noexcept;
 
 	command_t(const command_t& cmd);
 //	command_t& operator=(command_t& cmd);
-//
-	//@section Generic processing, dispatcher
+
+//@section Helpers
+	std::string to_string();
+
+//@section Generic processing, dispatcher
 	command_t process();
 
-	//@section Specific processing, invoking model interfaces
+//@section Specific processing, invoking model interfaces
 	/*
 	@brief process signup request per model,
 	check availability of username, create user record
@@ -73,3 +112,48 @@ public:
 
 
 };
+
+//msg_out_request - JSON object constructin
+#define MSNGR_TIME_T std::string
+#define MSNGR_USERID_T int
+#define MSNGR_CHATID_T int
+
+//TODO: may convert data members to private with accessor funcs ?
+struct msg_out_t {
+	
+	MSNGR_CHATID_T chat_id;
+	MSNGR_TIME_T time;
+	std::string msg_txt;
+//C-tor
+	msg_out_t(MSNGR_CHATID_T ch_id, MSNGR_TIME_T t, std::string m);
+	msg_out_t(const Poco::JSON::Object::Ptr cmd_val);
+	//or cmd_t itself - to assert type ?
+	msg_out_t(const command_t& cmd); //TODO: opt 1 of these ..?
+};
+
+struct msg_t {
+	MSNGR_USERID_T author_id;
+	MSNGR_CHATID_T chat_id;
+	MSNGR_TIME_T time;
+	std::string msg_txt;
+//C-tor
+	msg_t(MSNGR_USERID_T au_id, 
+			MSNGR_CHATID_T ch_id, 
+			MSNGR_TIME_T t, 
+			std::string m);
+};
+
+struct msg_in_t {
+//now - same as msg_t
+	MSNGR_USERID_T author_id;
+	MSNGR_CHATID_T chat_id; // now redundant as chat is ony 1-on-1
+	MSNGR_TIME_T time;
+	std::string msg_txt;
+//C-tor
+	msg_in_t(MSNGR_USERID_T au_id, 
+			MSNGR_CHATID_T ch_id, 
+			MSNGR_TIME_T t, 
+			std::string m);
+};
+
+#endif //COMMANDS

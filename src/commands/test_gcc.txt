@@ -1,0 +1,3 @@
+g++ commands.cpp test.cpp -I~/poco/JSON/include -I~/poco/Foundation/include -lstdc++ -ldl -lPocoJSON -lPocoFoundation -L/~/poco/lib/Linux/x86_64 -o test
+
+g++ commands.cpp test.cpp -I/home/mher/poco/JSON/include -I/home/mher/poco/Foundation/include -lstdc++ -ldl -lPocoJSON -lPocoFoundation -L/home/mher/poco/lib/Linux/x86_64 -o test

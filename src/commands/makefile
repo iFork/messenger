@@ -18,6 +18,7 @@
 
 # The source files under the project.
 cpp_files := commands.cpp \
+		test.cpp \ #MB: TODO: clean
 
 # The header files under the project, which are supposed to be used by other
 # projects.
@@ -41,8 +42,12 @@ uic_flags :=
 # 
 # Note: It is not recommended to overwrite the value (don't use := operator).
 # 
-compiler_flags +=
 
+cflags += -I$(HOME)/poco/JSON/include \
+		-I$(HOME)/poco/Foundation/include \
+
+compiler_flags += -I$(HOME)/poco/JSON/include \
+				-I$(HOME)/poco/Foundation/include \
 
 # The linker flags can be updated/overwritten for the project
 #
@@ -51,7 +56,8 @@ compiler_flags +=
 #
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
-linker_flags += -lstdc++ -ldl
+linker_flags += -lstdc++ -ldl \
+		-lPocoJSON -lPocoFoundation -L/$(HOME)/poco/lib/Linux/x86_64 \
 
 # The libraries which should be linked to the current project. The link type is
 # specified as a global parameter, except the libraries, which are built as a
@@ -91,4 +97,5 @@ lib_version :=
 # (by default $(project_root)/lib/).
 #
 
-include $(mkf_path)/lib.mk
+#include $(mkf_path)/lib.mk
+include $(mkf_path)/exe.mk #MB: TODO: swap back to lib
