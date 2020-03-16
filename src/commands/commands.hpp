@@ -14,6 +14,7 @@
 
 //#include <iostream>
 #include <string>
+#include <sstream>
 #include <cassert>
 
 //Command Category
@@ -67,6 +68,10 @@ public:
 	*/
 	command_t(const std::string& cmd);
 	/*
+	@brief parsing istream into command_t object
+	*/
+	command_t(std::istream& cmd); //parse doesnot like const istrm
+	/*
 	@brief 
 	*/
 	command_t(const command_cat_t cmd_cat, 
@@ -85,7 +90,10 @@ public:
 //	command_t& operator=(command_t& cmd);
 
 //@section Helpers
-	std::string to_string();
+	/*
+	@brief write command obj into provided stringstream
+	 */
+	void stringify(std::stringstream& sstr);
 
 //@section Generic processing, dispatcher
 	command_t process();

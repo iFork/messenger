@@ -53,6 +53,20 @@ command_t::command_t(const std::string& cmd)
 	Poco::Dynamic::Var result = parser.parse(cmd); //using default ParseHandler
 	Poco::JSON::Object::Ptr obj_p = 
 		result.extract<Poco::JSON::Object::Ptr>();
+	m_cmd_cat = obj_p->getValue<int>("cmd_cat"); //using implicit conversion
+	m_cmd_val = 
+		obj_p->getObject("cmd_val"); 
+}
+//TODO: decide on: keeping duplicate code in the body of this func
+//or what?
+command_t::command_t(std::istream& cmd)
+{
+	//validate that cmd follows our API format and put in m_command
+	// or assert here and validate externally ?-  static validate() func
+	Poco::JSON::Parser parser;
+	Poco::Dynamic::Var result = parser.parse(cmd); //using default ParseHandler
+	Poco::JSON::Object::Ptr obj_p = 
+		result.extract<Poco::JSON::Object::Ptr>();
 	m_cmd_cat = obj_p->getValue<int>("cmd_type"); //using implicit conversion
 	Poco::JSON::Object::Ptr m_cmd_val = 
 		obj_p->getObject("cmd_val"); 
@@ -75,12 +89,13 @@ command_t::command_t(const msg_out_t& msg_out):
 }
 
 //Helpers Implementation
-std::string command_t::to_string()
+void command_t::stringify(std::stringstream& sstr)
 {
 	Poco::JSON::Object cmd;
 	cmd.set("cmd_cat", m_cmd_cat.to_int());
 	assert(m_cmd_val != nullptr);
 	cmd.set("cmd_val", m_cmd_val);
+	cmd.stringify(sstr);
 };
 
 
