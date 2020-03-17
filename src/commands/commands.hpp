@@ -17,6 +17,10 @@
 #include <sstream>
 #include <cassert>
 
+#define MSNGR_TIME_T std::string
+#define MSNGR_USERID_T int
+#define MSNGR_CHATID_T int
+
 //Command Category
 class command_cat_t {
 public:
@@ -89,6 +93,10 @@ public:
 	command_t(const command_t& cmd);
 //	command_t& operator=(command_t& cmd);
 
+//@Section Accesssors
+//need when msg_t-s  use cmd to construct msg
+//TODO: add accessors for msg_t-s to use
+
 //@section Helpers
 	/*
 	@brief write command obj into provided stringstream
@@ -96,7 +104,8 @@ public:
 	void stringify(std::stringstream& sstr);
 
 //@section Generic processing, dispatcher
-	command_t process();
+	//command_t process();
+	command_t process(MSNGR_USERID_T originator_user_id);
 
 //@section Specific processing, invoking model interfaces
 	/*
@@ -118,13 +127,19 @@ public:
 	
 	command_t login_response();
 
+	/*
+	@brief process msg_out request, 
+	create msg and update corresponding chat,
+	check if members of the chat / recipinet is online,
+	if true, send updates of the chat to the participants / recipient,
+	@param originator_user_id - id of sender
+	@return command with msg_out_response 
+	*/
+	command_t process_msg_out_request(MSNGR_USERID_T originator_user_id);
+
 
 };
 
-//msg_out_request - JSON object constructin
-#define MSNGR_TIME_T std::string
-#define MSNGR_USERID_T int
-#define MSNGR_CHATID_T int
 
 //TODO: may convert data members to private with accessor funcs ?
 struct msg_out_t {
@@ -149,6 +164,8 @@ struct msg_t {
 			MSNGR_CHATID_T ch_id, 
 			MSNGR_TIME_T t, 
 			std::string m);
+	msg_t(MSNGR_USERID_T au_id, 
+			msg_out_t msg_out);
 };
 
 struct msg_in_t {
