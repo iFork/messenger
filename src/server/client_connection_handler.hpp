@@ -7,10 +7,10 @@
 #ifndef CLIENT_CONNECTION_HANDLER_HPP
 #define CLIENT_CONNECTION_HANDLER_HPP
 
-//Includes project relates headers
-#include "Poco/Net/StreamSocket.h"
-#include "Poco/Net/TCPServerConnection.h"
-#include "Poco/Net/TCPServerConnectionFactory.h"
+//3rd Party Includes
+#include <Poco/Net/StreamSocket.h>
+#include <Poco/Net/TCPServerConnection.h>
+#include <Poco/Net/TCPServerConnectionFactory.h>
 
 //Standard includes
 #include <iostream>
@@ -18,18 +18,21 @@
 //define values
 #define SIZE 1024
 
-using Poco::Net::TCPServerConnection;
 using Poco::Net::TCPServerConnectionFactoryImpl;
-using Poco::Net::StreamSocket;
-using Poco::Exception;
 
-class ClientConnection: public TCPServerConnection
+class client_connection: public Poco::Net::TCPServerConnection
 {
+public:
+	using TCPServerConnection = Poco::Net::TCPServerConnection;	
+	using StreamSocket = Poco::Net::StreamSocket;
+	using Exception = Poco::Exception;
+
 public:
 	/**
 	 * @brief Def constructor
+	 * @param socket not NULL
 	 */
-	ClientConnection(const StreamSocket& s): TCPServerConnection(s)
+	client_connection(const StreamSocket& socket): TCPServerConnection(socket)
 	{
 	}
 
@@ -57,6 +60,6 @@ public:
 	}
 };
 
-typedef TCPServerConnectionFactoryImpl<ClientConnection> TCPFactory;
+typedef TCPServerConnectionFactoryImpl<client_connection> TCPFactory;
 
 #endif // CLIENT_CONNECTION_HANDLER_HPP

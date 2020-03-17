@@ -11,23 +11,23 @@
 #include <iostream>
 #include <string>
 
-Server::Server(ServerSocket* serverSocket) :
-    TCPServer(new TCPFactory(), *serverSocket)
+server::server(ServerSocket* server_socket) :
+    TCPServer(new TCPFactory(), *server_socket)
 {
     std::cout << "Server created" << std::endl;
 }
 
-Server::~Server() noexcept 
+server::~server() noexcept 
 {   
     stop();
 }
 
-void Server::push_back(TCPServerConnection* connection) noexcept
+void server::push_back(TCPServerConnection* connection) noexcept
 {
     m_connection.push_back(connection);
 }
 
-void Server::pop_back() noexcept
+void server::pop_back() noexcept
 {
     m_connection.pop_back();
 }

@@ -7,44 +7,55 @@
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
-//Includes project relates headers
+//3rd Party Includes
 #include <Poco/Net/StreamSocket.h>
 #include <Poco/Net/SocketAddress.h>
 
-using SocketAddress = Poco::Net::SocketAddress;
-using StreamSocket = Poco::Net::StreamSocket;
-
 /**
- * @class class Client
+ * @class class client
 */
-class Client 
-{
+class client
+{ 
+public:
+    using SocketAddress = Poco::Net::SocketAddress;
+    using StreamSocket = Poco::Net::StreamSocket;
+
 private:
     SocketAddress* m_ipv4;
-    StreamSocket* m_clientSocket;
-    const char* m_outputBuffer;
-    char* m_inputBuffer;
+    StreamSocket* m_client_socket;
+    const char* m_output_buffer;
+    char* m_input_buffer;
 
 public:
     /**
      * @brief Def constructor
      */
-    Client() noexcept;
+    client() noexcept;
 
     /**
      * @brief Copy constructor
      */
-    Client(const Client& other) noexcept;
+    client(const client& other) = delete;
+
+    /**
+     * @brief Move Copy constructor
+     */
+    client(const client&& other) = delete;
 
     /**
      * @brief Assignment move operator
      */
-    Client& operator=(const Client&& other) noexcept;
+    client& operator=(const client& other) = delete;
+
+    /**
+     * @brief Move Assignment move operator
+     */
+    client& operator=(const client&& other) = delete;
 
     /**
      * @brief Destructor
      */
-    ~Client() noexcept;
+    ~client() noexcept;
 };
 
 #endif // CLIENT_HPP

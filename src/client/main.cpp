@@ -4,11 +4,14 @@
 
 #include <iostream>
 
-int main() {
+int main() 
+{
     
-    try {
-        Client(); 
-    } catch(Poco::Net::NetException& e) {
+    try 
+    {
+        client(); 
+    } catch(Poco::Net::NetException& e) 
+    {
         std::cout << e.what() << std::endl;
     }
     

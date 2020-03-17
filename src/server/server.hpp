@@ -9,45 +9,59 @@
 //Standard includes
 #include <vector>
 
-//Relates includes
-#include "Poco/Net/ServerSocket.h"
-#include "Poco/Net/SocketAddress.h"
-#include "Poco/Net/TCPServer.h"
-#include "Poco/Event.h"
+//3rd Party includes
+#include <Poco/Net/ServerSocket.h>
+#include <Poco/Net/SocketAddress.h>
+#include <Poco/Net/TCPServer.h>
+#include <Poco/Event.h>
 
 //Project includes
 #include "client_connection_handler.hpp"
 
-using SocketAddress = Poco::Net::SocketAddress;
-using ServerSocket = Poco::Net::ServerSocket;
-using StreamSocket = Poco::Net::StreamSocket;
-using TCPServer = Poco::Net::TCPServer;
-using Event = Poco::Event;
+class server : public Poco::Net::TCPServer 
+{
+public:
+    using SocketAddress = Poco::Net::SocketAddress;
+    using ServerSocket = Poco::Net::ServerSocket;
+    using StreamSocket = Poco::Net::StreamSocket;
+    using TCPServer = Poco::Net::TCPServer;
+    using TCPServerConnection = Poco::Net::TCPServerConnection;
+    using Event = Poco::Event;
 
-class Server : public TCPServer {
 private:
     std::vector<TCPServerConnection*> m_connection;
+
 public:
     /**
      * @brief Def constructor
-     * @param ServerSocket server's socket
+     * @param server_socket server's socket
      */
-    Server(ServerSocket*);
+    server(ServerSocket* server_socket);
 
     /**
      * @brief Copy constructor
      */
-    Server(const Server& other) = delete;
+    server(const server& other) = delete;
+
+    /**
+     * @brief Move Copy constructor 
+     */
+    server(const server&& other) = delete;
 
     /**
      * @brief Assignment operator
      */
-    Server& operator=(const Server&& other) = delete;
+    server& operator=(const server& other) = delete;
+
+    /**
+     * @brief Move Assignment operator
+     */
+    server& operator=(const server&& other) = delete;
 
     /**
      * @brief Destructor
      */
-    ~Server() noexcept;
+    ~server() noexcept;
 
     /**
      * @brief Push back @params to vector
