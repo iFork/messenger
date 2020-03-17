@@ -1,28 +1,64 @@
+/**
+ * @file server.hpp
+ * @author XCOM
+ * @brief Server class header
+*/
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
-#include "commands/commands.hpp"
-#include <iostream>
-#include <Poco/Net/ServerSocket.h>
-#include <Poco/Net/SocketAddress.h>
-#include <Poco/Net/StreamSocket.h>
+//Standard includes
+#include <vector>
+
+//Relates includes
+#include "Poco/Net/ServerSocket.h"
+#include "Poco/Net/SocketAddress.h"
+#include "Poco/Net/TCPServer.h"
+#include "Poco/Event.h"
+
+//Project includes
+#include "client_connection_handler.hpp"
 
 using SocketAddress = Poco::Net::SocketAddress;
 using ServerSocket = Poco::Net::ServerSocket;
 using StreamSocket = Poco::Net::StreamSocket;
+using TCPServer = Poco::Net::TCPServer;
+using Event = Poco::Event;
 
-class Server {
+class Server : public TCPServer {
 private:
-    SocketAddress* m_ipv4;
-    ServerSocket* m_serverSocket;
-    const char* m_outputBuffer;
-    char* m_inputBuffer;
-    
+    std::vector<TCPServerConnection*> m_connection;
 public:
-    Server() noexcept;
-    Server(const Server& other) noexcept;
-    Server& operator=(const Server&& other) noexcept;
+    /**
+     * @brief Def constructor
+     * @param ServerSocket server's socket
+     */
+    Server(ServerSocket*);
+
+    /**
+     * @brief Copy constructor
+     */
+    Server(const Server& other) = delete;
+
+    /**
+     * @brief Assignment operator
+     */
+    Server& operator=(const Server&& other) = delete;
+
+    /**
+     * @brief Destructor
+     */
     ~Server() noexcept;
+
+    /**
+     * @brief Push back @params to vector
+     * @param TCPServerConnection* 
+     */
+    void push_back(TCPServerConnection* connection) noexcept;
+
+    /**
+     * @brief Pop back from vector
+     */
+    void pop_back() noexcept;
 };
 
 #endif // SERVER_HPP
