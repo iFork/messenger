@@ -43,7 +43,8 @@ projects :=  \
 	src/client \
 	src/gui \
 	src/server \
-	src/parser\
+	src/parser \
+	src/logger\
 
 # Prerequisite tools
 preconditions := gcc doxygen ar ln pkg-config lcov
@@ -100,5 +101,5 @@ include $(mkf_path)/doc.mk
 
 # Dependencies between projects
 #
-src/gui: src/commands src/client 
-src/server: src/commands
+src/gui: src/commands src/client src/logger 
+src/server: src/commands src/logger 
