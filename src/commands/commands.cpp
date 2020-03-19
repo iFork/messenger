@@ -1,25 +1,10 @@
 
 #include "commands.hpp"
 
+#include <cassert>
 
-//Command_cat implementation
-//C-tor
-command_cat_t::command_cat_t(): m_cmd_cat(cmds_t::none)
-{
-	//null/terminal command
-}
-command_cat_t::command_cat_t(cmds_t cmd_c): m_cmd_cat(cmd_c)
-{
-}
-command_cat_t::command_cat_t(const int cmd_c)
-{
-	m_cmd_cat = static_cast<cmd_cats_t>(cmd_c);
-}
-//Accessors
-cmds_t command_cat_t::get()
-{
-	return m_cmd_cat;
-}
+/*
+TODO-MIGRATAE to command
 //Helper
 std::string command_cat_t::to_string()
 {
@@ -32,158 +17,131 @@ std::string command_cat_t::to_string()
 	}
 	return res;
 }
-int command_cat_t::to_int()
+*/
+
+//Command Implementation
+//Static Methods Implementation
+command* command::create(const std::string& stringified_cmd)
 {
-	return static_cast<int>(m_cmd_cat);
+
 }
 
-
-//Command_t Implementation
-//C-tor
-command_t::command_t()
-{
-	//null/terminal command
-}
-
-command_t::command_t(const std::string& cmd)
+command* command::create(const MSNGR_USERID_T originator_user_id, 
+		const std::string& stringified_cmd)
 {
 	//validate that cmd follows our API format and put in m_command
 	// or assert here and validate externally ?-  static validate() func
 	Poco::JSON::Parser parser;
-	Poco::Dynamic::Var result = parser.parse(cmd); //using default ParseHandler
+	Poco::Dynamic::Var result = parser.parse(stringified_cmd); //using default ParseHandler
 	Poco::JSON::Object::Ptr obj_p = 
 		result.extract<Poco::JSON::Object::Ptr>();
-	m_cmd_cat = obj_p->getValue<int>("cmd_cat"); //using implicit conversion
-	m_cmd_val = 
+ 	int cmd_cat = obj_p->getValue<int>("cmd_cat"); 
+	Poco::JSON::Object::Ptr cmd_val = 
 		obj_p->getObject("cmd_val"); 
-}
-//TODO: decide on: keeping duplicate code in the body of this func
-//or what?
-command_t::command_t(std::istream& cmd)
-{
-	//validate that cmd follows our API format and put in m_command
-	// or assert here and validate externally ?-  static validate() func
-	Poco::JSON::Parser parser;
-	Poco::Dynamic::Var result = parser.parse(cmd); //using default ParseHandler
-	Poco::JSON::Object::Ptr obj_p = 
-		result.extract<Poco::JSON::Object::Ptr>();
-	m_cmd_cat = obj_p->getValue<int>("cmd_type"); //using implicit conversion
-	Poco::JSON::Object::Ptr m_cmd_val = 
-		obj_p->getObject("cmd_val"); 
-}
-command_t::command_t(const command_cat_t cmd_cat, 
-			const Poco::JSON::Object::Ptr cmd_val)
-{
-	//m_command = "{" + R"("user_id":")" + user_id + 
-	//create JSON using Poco and put in m_command
+	command* cmd = nullptr;
+	switch (cmd_cat) {
+		case static_cast<int>(command_category::msg_out_request):
+			cmd = new cmd_msg_out_request(originator_user_id, 
+					cmd_val);
+			break;
+	}
+	return cmd;
 }
 
-command_t::command_t(const msg_out_t& msg_out):
-		m_cmd_cat(cmds_t::msg_out_request)
-{
-	//setting JSON obj fields
-	m_cmd_val = new Poco::JSON::Object;
-	m_cmd_val->set("chat_id", msg_out.chat_id);
-	m_cmd_val->set("time", msg_out.time);
-	m_cmd_val->set("msg_txt", msg_out.msg_txt);
-}
-
-//Helpers Implementation
-void command_t::stringify(std::stringstream& sstr)
+//Helper Implementation
+inline void command::dressed_stringify_helper(std::stringstream& sstr, command_category cmd_cat)
 {
 	Poco::JSON::Object cmd;
-	cmd.set("cmd_cat", m_cmd_cat.to_int());
+	cmd.set("cmd_cat", static_cast<int>(cmd_cat));
 	assert(m_cmd_val != nullptr);
 	cmd.set("cmd_val", m_cmd_val);
 	cmd.stringify(sstr);
-};
-
-
-//Generic processing, dispatcher Implementation
-command_t command_t::process(MSNGR_USERID_T originator_user_id)
-{
-	command_t response;
-	switch(m_cmd_cat.to_int()) {
-		case (int) cmds_t::signup_request:
-			response = signup_request(); //user_id is either 000 or irrrelevant
-							//or change arg above to clinet id ??
-			break;
-		case (int) cmds_t::msg_out_request:
-			response = process_msg_out_request(originator_user_id);
-			break;
-		//TODO: cases
-	}
-	return response;
 }
 
-//Specific processing, invoking model interfaces Implementation
-command_t command_t::signup_request()
+//cmd_msg_out_request Implementation
+//C-tors
+cmd_msg_out_request::cmd_msg_out_request(MSNGR_CHATID_T ch_id, MSNGR_TIME_T t,
+				 std::string m) noexcept
 {
+	m_cmd_val = new Poco::JSON::Object;
+	m_cmd_val->set("chat_id", ch_id);
+	m_cmd_val->set("time", t);
+	m_cmd_val->set("msg_txt", m);
+}
+
+cmd_msg_out_request::cmd_msg_out_request(const MSNGR_USERID_T originator_user_id,
+			const Poco::JSON::Object::Ptr cmd_val) noexcept
+{
+	m_cmd_val = cmd_val;
+	m_cmd_val->set("author_id", originator_user_id);
+}
+
+//Virtual Method Overrides
+void cmd_msg_out_request::dressed_stringify(std::stringstream& sstr) noexcept
+{
+	dressed_stringify_helper(sstr, command_category::msg_out_request);
 
 }
 
-command_t command_t::process_msg_out_request(MSNGR_USERID_T originator_user_id)
+void cmd_msg_out_request::stripped_stringify(std::stringstream& sstr) noexcept
 {
-
-	//msg_t msg(originator_user_id, m_cmd_val);
-	assert((std::is_same<MSNGR_TIME_T, std::string>::value));
-			//ASSUMPTION: MSNGR_TIME_T is string, otherwise
-			//additional pre-processing may be needed
-	//msg_out_t msg_out(m_cmd_val); //////////
-	//or 
-	//msg_out_t msg_out(this);
-	//msg_t msg(originator_user_id, msg_out); ////////
-	//TODO:
+	//TODO: remove keys
+//	Poco::JSON::Object::Ptr tempo = new Poco::JSON::Object;
+//	m_cmd_val->set("chat_id", ch_id);
+//	m_cmd_val->set("time", t);
+//	m_cmd_val->set("msg_txt", m);
 }
 
-//MSG Structs Implementation
-//C-tors Implementation
-msg_out_t::msg_out_t(MSNGR_CHATID_T ch_id, MSNGR_TIME_T t, std::string m):
-	chat_id(ch_id), time(t), msg_txt(m)	
+command* cmd_msg_out_request::process() noexcept
 {
-}
+	command* response = nullptr;
+	MSNGR_CHATID_T chat_id = m_cmd_val->getValue<MSNGR_CHATID_T>("chat_id");
+	std::cout << "chat id to find is:" << chat_id << std::endl;
+	//find chat file by chat_id	
+	//append chat file with the message
+	//chat_file ch_f(chat_id)
+	//stringify(sstr)...
+	/*
+	TODO:ADD and RENAME  Stringify methods : 
+	 this stringiofyer should strip away meta-data, cmd category 
+	have strip_/stringify_strip or bare_stringify or pack_string
+// {"author_id":1,"chat_id":12,"msg_txt":"Hello msg out request","time":"12:30"}
+	 strip downed version for saving / storing 
+	      //TO STRIP away before writing - E.G.  cmd_cat, cmd_val->chat_id
+	So this cannot be universal function for all subtypes but each subtype
+	must/can (?) OVERRIDE it before passing to model-updater (?) 
+	 / db writer
+	*/
 
-msg_out_t::msg_out_t(Poco::JSON::Object::Ptr cmd_val):
-	chat_id(cmd_val->getValue<MSNGR_CHATID_T>("chat_id")),  //chat_id
-	msg_txt(cmd_val->getValue<std::string>("msg_txt"))	//msg_txt
-{
-	assert((std::is_same<MSNGR_TIME_T, std::string>::value));
-			//ASSUMPTION: MSNGR_TIME_T is string, otherwise
-			//additional pre-processing may be needed
-	time = cmd_val->getValue<MSNGR_TIME_T>("time");	//time
-}
+	//ch_f.append(sstr.str());
+	//get participants of the chat
+		//either from chat json 
+		//or infer from chat_id naming convention
+		//or in a separate file mapping jsons with participants -
+		//like contact or chat-room list
+	//user_id receiver_id
+	//if(server.is_online(receiver_id))
+		//return new cmd_msg_in_response()
+		//or
+		//msg_in = new cmd_msg_in_response()
+		//server.send_to_user(user_id, msg_in.stringify())
+		//command response = new cmd_cat_response()
+		//or terminal command - new cmd_respondse(none)
+	//elif 
+		//return cmd_msg_out_response (?) 
 
-msg_out_t::msg_out_t(const command_t& cmd) //:
-	//chat_id(cmd.cmd_val()->getValue<MSNGR_CHATID_T>("chat_id")),  //chat_id
-	//msg_txt(cmd.cmd_val()->getValue<std::string>("msg_txt"))	//msg_txt
-{
-	//TODO: doing
 	//assert(cmd.///////get_cmd_cat = msg_out_request // 
 		//BUT what about msg_out_response ?????? is it also a type??
 	assert((std::is_same<MSNGR_TIME_T, std::string>::value));
 			//ASSUMPTION: MSNGR_TIME_T is string, otherwise
 			//additional pre-processing may be needed
-	//time = cmd.cmd_val()->getValue<MSNGR_TIME_T>("time"),	//time
 }
 
-msg_t::msg_t(MSNGR_USERID_T au_id, 
-			MSNGR_CHATID_T ch_id, 
-			MSNGR_TIME_T t, 
-			std::string m):
-	author_id(au_id), chat_id(ch_id), time(t), msg_txt(m)	
-{
-}
-msg_t::msg_t(MSNGR_USERID_T au_id, 
-			msg_out_t msg_out):
-	author_id(au_id), chat_id(msg_out.chat_id), time(msg_out.time), 
-		msg_txt(msg_out.msg_txt)
-{
-}
+///TODO cont' types
+class cmd_login_request : public command {
 
-msg_in_t::msg_in_t(MSNGR_USERID_T au_id, 
-			MSNGR_CHATID_T ch_id, 
-			MSNGR_TIME_T t, 
-			std::string m):
-	author_id(au_id), chat_id(ch_id), time(t), msg_txt(m)	
-{
-}
+
+};
+
+
+
