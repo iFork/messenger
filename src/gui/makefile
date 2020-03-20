@@ -20,6 +20,8 @@
 cpp_files := login.cpp \
 			chat_box.cpp \
   			main.cpp \
+			main_window.cpp \
+			signup.cpp \
 
 # The header files under the project, which are supposed to be used by other
 # projects.
@@ -29,6 +31,8 @@ public_headers := \
 # TODO: Add detailed comments.
 qt_headers := chat_box.hpp \
 	login.hpp \
+	main_window.hpp \
+	signup.hpp \
 
 moc_flags :=
 

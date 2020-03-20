@@ -1,5 +1,5 @@
-#ifndef LOGIN_HPP
-#define LOGIN_HPP
+#ifndef SIGNUP_HPP
+#define SIGNUP_HPP
 
 #include <QWidget>
 
@@ -7,12 +7,12 @@ class QLineEdit;
 class QPushButton;
 class QVBoxLayout;
 
-class login: public QWidget
+class signup: public QWidget
 {
 Q_OBJECT
 public:
-    login(QWidget* parent = 0);
-    ~login(){};
+    signup(QWidget* parent = 0);
+    ~signup(){};
 private:
     QVBoxLayout *m_layout;
     QLineEdit* m_user_name;
@@ -22,4 +22,4 @@ signals:
     void changeStackedWidgetIndex(int);
 };
 
-#endif
+#endif // SIGNUP_HPP
