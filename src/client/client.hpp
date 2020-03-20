@@ -11,6 +11,12 @@
 #include <Poco/Net/StreamSocket.h>
 #include <Poco/Net/SocketAddress.h>
 
+
+//STL Includes
+#include <vector>
+
+#include "../user/user.hpp"
+
 /**
  * @class class client
 */
@@ -21,6 +27,7 @@ public:
     using StreamSocket = Poco::Net::StreamSocket;
 
 private:
+    user* m_user;
     SocketAddress* m_ipv4;
     StreamSocket* m_client_socket;
     const char* m_output_buffer;
@@ -56,6 +63,18 @@ public:
      * @brief Destructor
      */
     ~client() noexcept;
+
+public:
+    void log_in_helper(std::string& username);
+    void sign_up_helper(std::string& username);
+    void new_group_helper(std::string& name, std::vector<user> users);
+    void call_helper(user& user);
+    void video_call_helper(user& user);
+    void open_camera_helper();
+    //void send_file_helper(const File& file);
+    //void send_smile_helper(const Image& img);
+    void send_messege_helper(std::string& messege);
+
 };
 
 #endif // CLIENT_HPP

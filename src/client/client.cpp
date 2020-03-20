@@ -36,3 +36,55 @@ client::~client() noexcept
     assert(nullptr != m_client_socket);
     m_client_socket->close();
 }
+
+void client::log_in_helper(std::string& username)
+{
+    std::cout << "Log In" << username << std::endl;
+}
+
+void client::sign_up_helper(std::string& username)
+{
+    std::cout << "Sign Up" << username << std::endl;
+}
+
+void client::new_group_helper(std::string& name, std::vector<user> users)
+{
+    for(size_t i = 0; i < users.size(); ++i) 
+    {
+        std::cout << users[i].get_username() << std::endl;
+    }
+
+    std::cout << "New group" << name << std::endl;
+}
+
+void client::call_helper(user& user)
+{
+    std::cout << user.get_user_id() << std::endl;
+    std::cout << user.get_username() << std::endl;
+}
+
+void client::video_call_helper(user& user)
+{
+    std::cout << user.get_user_id() << std::endl;
+    std::cout << user.get_username() << std::endl;
+}
+
+void client::open_camera_helper()
+{
+
+}
+
+/*void client::send_file_helper(const File& file)
+{
+
+}*/
+
+/*void client::send_smile_helper(const Image& img)
+{
+
+}*/
+
+void client::send_messege_helper(std::string& messege)
+{
+    std::cout << "send messege " << messege << std::endl; 
+}

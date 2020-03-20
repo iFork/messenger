@@ -17,6 +17,7 @@
 
 //Project includes
 #include "client_connection_handler.hpp"
+#include "../user/user.hpp"
 
 class server : public Poco::Net::TCPServer 
 {
@@ -29,6 +30,7 @@ public:
     using Event = Poco::Event;
 
 private:
+    std::vector<user*> m_online_users;
     std::vector<TCPServerConnection*> m_connection;
 
 public:
