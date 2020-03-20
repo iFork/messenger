@@ -20,6 +20,8 @@ private:
     QPushButton* m_ok_button;
 signals:
     void changeStackedWidgetIndex(int);
+private slots:
+    void submit_form();
 };
 
 #endif // SIGNUP_HPP

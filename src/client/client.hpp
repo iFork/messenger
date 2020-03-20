@@ -15,7 +15,7 @@
 //STL Includes
 #include <vector>
 
-#include "../user/user.hpp"
+#include "shared/user.hpp"
 
 /**
  * @class class client

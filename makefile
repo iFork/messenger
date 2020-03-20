@@ -39,6 +39,7 @@ prefix := $(HOME)
 # projects := src/project1 src/project2
 #
 projects :=  \
+	src/shared \
 	src/commands \
 	src/client \
 	src/gui \
@@ -102,3 +103,4 @@ include $(mkf_path)/doc.mk
 #
 src/gui: src/commands src/client 
 src/server: src/commands
+src/client: src/shared

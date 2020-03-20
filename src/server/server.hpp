@@ -17,7 +17,7 @@
 
 //Project includes
 #include "client_connection_handler.hpp"
-#include "../user/user.hpp"
+#include "shared/user.hpp"
 
 class server : public Poco::Net::TCPServer 
 {

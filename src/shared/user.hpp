@@ -21,14 +21,14 @@ public:
     user(std::string username);
     ~user();
 
-    void add_to_contacts(user* user);
-    void add_to_conversation(user* user);
+    void add_to_contacts(user* username);
+    void add_to_conversation(user* username);
 
-    void delete_from_contacts(const user* user);
+    void delete_from_contacts(const user* username);
     void delete_from_contacts(size_t user_id);
     void delete_from_contacts(std::string& username);
 
-    void delete_from_conversation(const user* user);
+    void delete_from_conversation(const user* username);
     void delete_from_conversation(size_t user_id);
     void delete_from_conversation(std::string& username);
 

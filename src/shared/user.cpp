@@ -2,10 +2,11 @@
 #include <iostream>
 
 //static member initialization
-int m_count = 0;
+int user::m_count = 0;
 
-user::user(std::string username) : m_username(username),
-                                 m_user_id(m_count++) 
+user::user(std::string username) : m_user_id(m_count++),
+                                   m_username(username)
+                                 
 {
     m_user_contacts = std::vector<std::pair<user*, bool>>();
 }
@@ -15,16 +16,16 @@ user::~user()
 
 }
 
-void user::add_to_contacts(user* user) 
+void user::add_to_contacts(user* username) 
 {
-    m_user_contacts.push_back(std::make_pair(user,false));
+    m_user_contacts.push_back(std::make_pair(username,false));
 }
 
-void user::add_to_conversation(user* user)
+void user::add_to_conversation(user* username)
 {
-    for(int i = 0; i < m_user_contacts.size(); ++i)
+    for(size_t i = 0; i < m_user_contacts.size(); ++i)
     {
-        if(user == m_user_contacts[i].first)
+        if(username == m_user_contacts[i].first)
         {
             m_user_contacts[i].second = true;
         }
@@ -36,11 +37,11 @@ void user::add_to_conversation(user* user)
     }
 }
 
-void user::delete_from_contacts(const user* user)
+void user::delete_from_contacts(const user* username)
 {
-    for(int i = 0; i < m_user_contacts.size(); ++i)
+    for(size_t i = 0; i < m_user_contacts.size(); ++i)
     {
-        if(m_user_contacts[i].first == user)
+        if(m_user_contacts[i].first == username)
         {
             m_user_contacts.erase(m_user_contacts.begin() + i);
         }
@@ -54,7 +55,7 @@ void user::delete_from_contacts(const user* user)
 
 void user::delete_from_contacts(size_t user_id) 
 {
-    for(int i = 0; i < m_user_contacts.size(); ++i)
+    for(size_t i = 0; i < m_user_contacts.size(); ++i)
     {
         if(m_user_contacts[i].first->m_user_id == user_id)
         {
@@ -69,7 +70,7 @@ void user::delete_from_contacts(size_t user_id)
 
 void user::delete_from_contacts(std::string& username)
 {
-    for(int i = 0; i < m_user_contacts.size(); ++i)
+    for(size_t i = 0; i < m_user_contacts.size(); ++i)
     {
         if(m_user_contacts[i].first->m_username == username)
         {
@@ -82,11 +83,11 @@ void user::delete_from_contacts(std::string& username)
     }
 }
 
-void user::delete_from_conversation(const user* user)
+void user::delete_from_conversation(const user* username)
 {
-    for(int i = 0; i < m_user_contacts.size(); ++i)
+    for(size_t i = 0; i < m_user_contacts.size(); ++i)
     {
-        if(m_user_contacts[i].first == user)
+        if(m_user_contacts[i].first == username)
         {
             m_user_contacts[i].second = false;
         }
@@ -99,7 +100,7 @@ void user::delete_from_conversation(const user* user)
 
 void user::delete_from_conversation(size_t user_id)
 {
-    for(int i = 0; i < m_user_contacts.size(); ++i)
+    for(size_t i = 0; i < m_user_contacts.size(); ++i)
     {
         if(m_user_contacts[i].first->m_user_id == user_id)
         {
@@ -114,7 +115,7 @@ void user::delete_from_conversation(size_t user_id)
 
 void user::delete_from_conversation(std::string& username)
 {
-    for(int i = 0; i < m_user_contacts.size(); ++i)
+    for(size_t i = 0; i < m_user_contacts.size(); ++i)
     {
         if(m_user_contacts[i].first->m_username == username)
         {
