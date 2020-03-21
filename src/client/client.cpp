@@ -18,17 +18,8 @@
 #define HOST IP PORT
 
 client::client() noexcept
-{
-    std::cout << "Connecting to host: "<< HOST << " ..." << std::endl;
-    m_ipv4 = new SocketAddress(HOST);
-    m_client_socket = new StreamSocket(*m_ipv4);
-    
-    std::string s("Give me some information");
-    m_output_buffer = s.c_str();
-    m_client_socket->sendBytes(m_output_buffer, SIZE);
-
-//    int k = m_clientSocket->receiveBytes(m_inputBuffer, SIZE);
-//    std::cout << "Buffer " << k << " " << (std::string)m_inputBuffer << std::endl;
+{   
+    connect();
 }
 
 client::~client() noexcept
@@ -37,14 +28,63 @@ client::~client() noexcept
     m_client_socket->close();
 }
 
-void client::log_in_helper(std::string& username)
+void client::send(std::string message)
 {
-    std::cout << "Log In" << username << std::endl;
+    assert("" != message);
+    std::string s("Give me some information");
+    m_output_buffer = message.c_str();
+    m_client_socket->sendBytes(m_output_buffer, SIZE);
+
 }
 
-void client::sign_up_helper(std::string& username)
+std::string client::recive()
 {
-    std::cout << "Sign Up" << username << std::endl;
+    int k = m_client_socket->receiveBytes(m_input_buffer, SIZE);
+    std::string res = (std::string)m_input_buffer;
+    std::cout << "Buffer " << k << " " << (std::string)m_input_buffer << std::endl;
+    return res;
+}
+
+void client::connect()
+{
+    if(check_internet_connection())
+    {
+        m_ipv4 = new SocketAddress(HOST);
+        m_client_socket = new StreamSocket();
+        m_client_socket->connect(*m_ipv4);
+    } 
+    else 
+    {
+        std::cout << "Connection to server failed" << std::endl;
+    }
+}
+
+bool client::check_internet_connection()
+{
+    std::cout << "_________________Checking internet connection________________" << std::endl;
+    int connection = system("ping -c 1 8.8.8.8");
+    if(connection)
+    {
+        std::cout << "_____________________________________________________________" << std::endl;
+        std::cout << "There is no internet connection" << std::endl;
+        return false;
+    }
+    else
+    {                 
+        std::cout << "_____________________________________________________________" << std::endl;
+        std::cout << "There is internet connection" << std::endl;
+        return true;
+    }    
+}
+
+void client::log_in_helper(std::string username)
+{
+    std::cout << "Log In " << username << std::endl;
+}
+
+void client::sign_up_helper(std::string username)
+{
+    std::cout << "Sign Up " << username << std::endl;
 }
 
 void client::new_group_helper(std::string& name, std::vector<user> users)
@@ -54,7 +94,7 @@ void client::new_group_helper(std::string& name, std::vector<user> users)
         std::cout << users[i].get_username() << std::endl;
     }
 
-    std::cout << "New group" << name << std::endl;
+    std::cout << "New group " << name << std::endl;
 }
 
 void client::call_helper(user& user)

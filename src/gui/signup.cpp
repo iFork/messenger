@@ -31,6 +31,6 @@ void signup::submit_form()
         QMessageBox::critical(this, "Error", "Username cannot contain space");        
     } else {
         client client_obj;
-        client_obj.log_in_helper(user_name.toStdString());
+        client_obj.sign_up_helper(user_name.toStdString());
     }
 }

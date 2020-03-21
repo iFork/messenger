@@ -60,13 +60,33 @@ public:
     client& operator=(const client&& other) = delete;
 
     /**
+     * @brief Send message to Server 
+     */
+    void send(std::string message);
+    
+    /**
+     * @brief Recive message from Server 
+     */
+    std::string recive();
+
+    /**
+     * @brief Connect to Server 
+     */
+    void connect();
+
+    /**
+     * @brief Checking internet connection
+     */
+    bool check_internet_connection();
+    
+    /**
      * @brief Destructor
      */
     ~client() noexcept;
 
 public:
-    void log_in_helper(std::string& username);
-    void sign_up_helper(std::string& username);
+    void log_in_helper(std::string username);
+    void sign_up_helper(std::string username);
     void new_group_helper(std::string& name, std::vector<user> users);
     void call_helper(user& user);
     void video_call_helper(user& user);
