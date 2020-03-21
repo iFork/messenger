@@ -1,7 +1,7 @@
 /**
- * @file json_parser.hpp
- * @brief Common declaration for the Json Parser library
- * @author Vardan Vardanyan
+ * @file json_parser.cpp
+ * @brief Implementation for the Json Parser library
+ * @author ITC students
  * @copy Instigate Training Center Foundation, Yerevan, 2020
  * @details This library is parsing the ".txt" format file to ".json" format
  * @todo Returns the given key value.

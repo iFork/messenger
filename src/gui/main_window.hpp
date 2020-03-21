@@ -12,7 +12,7 @@ class main_window : public QMainWindow
 {
 Q_OBJECT
 public:
-    main_window(QWidget* parent = 0);
+    main_window(QWidget* parent = Q_NULLPTR);
     QSize sizeHint() const;
     ~main_window(){};
 private:

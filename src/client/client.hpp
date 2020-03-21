@@ -1,21 +1,23 @@
-/**
- * @file client.hpp
- * @author XCOM
- * @brief Client class header
-*/
-
 #ifndef CLIENT_HPP
 #define CLIENT_HPP
 
-//3rd Party Includes
+/**
+ * @file client.hpp
+ * @brief Implementation for the client library
+ * @author ITC students
+ * @copy Instigate Training Center Foundation, Yerevan, 2020
+ */
+
+// includes from this project
+#include "../shared/user.hpp"
+
+// includes from PoCo library
 #include <Poco/Net/StreamSocket.h>
 #include <Poco/Net/SocketAddress.h>
 
 
-//STL Includes
+// includes from C++ standart libraries
 #include <vector>
-
-#include "shared/user.hpp"
 
 /**
  * @class class client
@@ -97,4 +99,4 @@ public:
 
 };
 
-#endif // CLIENT_HPP
+#endif // CLIENT_HPP client.cpp

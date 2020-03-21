@@ -11,7 +11,7 @@ class login: public QWidget
 {
 Q_OBJECT
 public:
-    login(QWidget* parent = 0);
+    login(QWidget* parent = Q_NULLPTR);
     ~login(){};
 private:
     QVBoxLayout *m_layout;
@@ -24,4 +24,4 @@ private slots:
     void submit_form();
 };
 
-#endif
+#endif // LOGIN_HPP

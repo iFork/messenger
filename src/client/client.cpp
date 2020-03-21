@@ -1,17 +1,20 @@
 /**
  * @file client.cpp
- * @author XCOM
- * @brief Client class implementation
-*/
+ * @brief Implementation for the client library
+ * @author ITC students
+ * @copy Instigate Training Center Foundation, Yerevan, 2020
+ */
 
-//Project includes
+// includes from this project
 #include "client.hpp"
 
-//Standard includes
+// includes from C++ library
 #include <iostream>
+
+// includes from C library
 #include <cassert>
 
-//define values
+// define values
 #define SIZE 1024
 #define IP "127.0.0.1"
 #define PORT ":8000"

@@ -36,7 +36,7 @@ class ChatBox: public QWidget
     Q_OBJECT
     public:
     //Constructor
-    ChatBox(QWidget* parent = 0);
+    ChatBox(QWidget* parent = Q_NULLPTR);
     ///Destructor
     ~ChatBox(){};
     private:

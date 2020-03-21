@@ -8,10 +8,10 @@
  * Tel:  xxxxxx
  */
 
-// Headers from this project
+// includes from this project
 #include "chat_box.hpp"
 
-// Forward declarations
+// includes from QT library
 #include <QGridLayout>
 #include <QMenuBar>
 #include <QMenu>
