@@ -1,6 +1,6 @@
-/*
+/**
 @file commands.hpp
-This file ss a part of the controller module of the app (in terms of MVC).
+This file is a part of the controller module of the app (in terms of MVC).
 */
 
 #ifndef COMMANDS
@@ -28,17 +28,17 @@ This file ss a part of the controller module of the app (in terms of MVC).
 */
 
 typedef std::string MSNGR_TIME_T;
-typedef int MSNGR_USERID_T;
+typedef std::string MSNGR_USERID_T;
 typedef int MSNGR_CHATID_T;
 
-/*
-@class command_category
-@brief Enum for command categories
+/**
+* Enum for command categories.
 */
 enum class command_category {
 	//none = 0, 
 		//may serve as a default value ?
 		//null/terminal command
+		//TODO move to the end
 	signup_request,
 	signup_response,
 	login_request,
@@ -47,169 +47,277 @@ enum class command_category {
 	add_contact_response,
 	read_chat_room_request,
 	read_chat_room_response, //is this necessary ?
-	msg_out_request,
+	msg_out_request, /**< Outgoing message request.  */
 	msg_out_response,
 	msg_in_request,
 	msg_in_response, //is this necessary
 	file_out_request,
 	file_out_response
+	//terminal //no need for terminal category as it should
+			// never reach factory
 };
 
 
-/*
-@class command
-@brief This is an abstract class with factory method to create appropriate
-derived types per each specific command category.
+/**
+* An abstract class with factory method to create appropriate
+* derived types for each specific command category.
 */
 class command {
 protected:
-	/*
-	@var m_cmd_val
-	m_cmd_val a Poco::JSON::Object::Ptr 
+	/**
+	* JSON object pointer.
 	*/
 	Poco::JSON::Object::Ptr m_cmd_val;
-		
+	/**
+	* A bool flag to indicate if object was stripped after construction or not.
+	*/
+	bool m_is_stripped;		
+	/**
+	* A bool flag to indicate if object was dressed after construction or not.
+	*/
+	bool m_is_dressed;
 public:
-//@section Static public methods
-	/*
-	@brief static factory method to create objects of appropriate
-	type (which are derived from command class) and initialize 
-	them.
-	@param stringified_cmd is a string returned by the dressed_stringify
-	method of an object derived from command class.
-	It is a JSON conforming string which has "cmd_cat" key indicating
-	type of object to be created and "cmd_val" key which is used to
-	initialize the object.
-	@return a pointer of base class (command) where pointee is a
-	derived object and is initialized
+//Static public methods
+	/**
+	* A static factory method to create objects of appropriate
+	* type (which are derived from command class) and initialize 
+	* them.
+	*
+	* Used at client side.
+	* @param stringified_cmd is a string returned by the stringify
+	* method of an object derived from command class.
+	* It is a JSON conforming string which has "cmd_cat" key indicating
+	* type of object to be created and "cmd_val" key which is used to
+	* initialize the object.
+	* @return a pointer of base class (command) where pointee is a
+	* derived object and is initialized
 	*/
-	static command* create(const std::string& stringified_cmd);
-	/*
-	@brief factory method to be used at server side when originator user_id is not part of
-	the data streamed but is inferred from the socket connection.
+	static command* response_factory(const std::string& stringified_cmd) noexcept;
+	/**
+	* A factory method to be used at server side when originator user_id is not part of
+	* the data streamed but is inferred from the socket connection.
+	* @param stringified_cmd is a string returned by the stringify
+	* method of an object derived from command class.
+	* It is a JSON conforming string which has "cmd_cat" key indicating
+	* type of object to be created and "cmd_val" key which is used to
+	* initialize the object.
+	* @param originator_user_id, an id of the user who send the command
 	*/
-	static command* create(const MSNGR_USERID_T originator_user_id, 
-		const std::string& stringified_cmd);
+	static command* request_factory(const MSNGR_USERID_T originator_user_id, 
+		const std::string& stringified_cmd) noexcept;
 
-	/*
-	static factory method to create objects of appropriate
-	type (which are derived from command class)
-	param cmd_cat is of command_category type and indicates specific
-	derived type to be created
-	return a pointer of base class (command) where pointee is a
-	derived object as indicating by cmd_cat argument
-	*/
-	//static command* create(const command_category cmd_cat);
-		//Depricate - as itialization of the resultant objects 
-		//is out of the scope of this class and we have no uniform way
-		//for virtual setters
+//Abstract methods
+	/**
+	* A pure virtual method to add metadata (to the m_cmd_val)
+ 	*/
+	virtual void dress() = 0;
+	/**
+	* A pure virtual method to remove metadata (from m_cmd_val)
+ 	*/
+	virtual void strip() = 0;
 
-//@section Abstract methods
-	/*
-	@brief write command obj into provided stringstream, a pure virtual function,
-	packed with the metadata
-	 */
-	virtual void dressed_stringify(std::stringstream& str) = 0;
-	/*
-	@brief write command obj into provided stringstream, a pure virtual function,
-	stripped from metadata
-	 */
-	virtual void stripped_stringify(std::stringstream& str) = 0;
-	/*
-	@brief process command obj, a pure virtual function
-	 */
-	virtual command* process() = 0;
-	
-protected:
+	/**
+	* A pure virtual method to process command obj
+	*/
+	virtual command* process() noexcept = 0;
+
 //Helpers
-	inline void dressed_stringify_helper(std::stringstream& sstr, command_category cmd_cat);
+
+	/**
+	* Write command obj into provided stringstream 
+	*/
+	virtual void stringify(std::stringstream& str) const noexcept; 
+//TODO: pack for sending - pack(string) / dress + stringify
+//TODO: unpack for model updating - unpack(string) / strip + stringify
+
+protected:
+//Protected Helpers
+	inline void dress_helper(command_category cmd_cat) noexcept;
+
 };
 
 
+
+/**
+* A class used for managing signup requests from client
+*/
+class cmd_signup_request : public command {
+
+//Special member function not supported (yet)
+	cmd_signup_request(const cmd_signup_request&) = delete;
+	cmd_signup_request(const cmd_signup_request&&) = delete;
+	cmd_signup_request& operator=(const cmd_signup_request&) = delete;
+	cmd_signup_request& operator=(const cmd_signup_request&&) = delete;
+public:
+//C-tors
+	/**
+	* A c-tor that gui uses to initialize command to be send
+	*/
+	cmd_signup_request(MSNGR_USERID_T requested_u_id) noexcept;
+
+	/**
+	* A c-tor that command factory uses to initialize command at server side,
+	* @param cmd_val, a JSON object pointer 
+	*/
+	cmd_signup_request(const Poco::JSON::Object::Ptr cmd_val) noexcept;
+
+//Virtual method overrides
+
+	/**
+	* Overrides a method adding metadata
+ 	*/
+	void dress() noexcept override;
+	/**
+	* Overrides a method removing metadata
+ 	*/
+	void strip() noexcept override;
+
+	/**
+	* Overridden method to process command, 
+	* check if user_id is free to be taken,
+	* if yes, create user file,
+	* @return command with signup_response
+	*/
+	command* process() noexcept override;
+
+};
+
+/**
+* A class used for managing responses to signup requests of server
+*/
+class cmd_signup_response : public command {
+
+//Special member function not supported (yet)
+	cmd_signup_response(const cmd_signup_response&) = delete;
+	cmd_signup_response(const cmd_signup_response&&) = delete;
+	cmd_signup_response& operator=(const cmd_signup_response&) = delete;
+	cmd_signup_response& operator=(const cmd_signup_response&&) = delete;
+public:
+//C-tors
+	/**
+	* A c-tor that server uses to initialize command to be send
+	* @param status_code, an int, 0 if successful, 1 otherwise
+	* @param user_id, string, if status_code is successful, it 
+	* contains user_id successfully signed up with
+	*/
+	cmd_signup_response(const int status_code, 
+			const std::string user_id = "" ) noexcept;
+
+	/**
+	* A c-tor that command factory uses to initialize command at client side,
+	* @param cmd_val, a JSON object pointer 
+	*/
+	cmd_signup_response(const Poco::JSON::Object::Ptr cmd_val) noexcept;
+
+//Virtual method overrides
+
+	/**
+	* Overrides a method adding metadata
+ 	*/
+	void dress() noexcept override;
+	/**
+	* Overrides a method removing metadata
+ 	*/
+	void strip() noexcept override;
+
+	/**
+	* Overridden method to process command at client side,
+	* if successful, create create user file at client end,
+	* @return a terminal command 
+//TODO:a type for terminal command as no further processing is needed
+	*/
+	command* process() noexcept override;
+
+};
+
+/**
+* A class used for terminating response and request exchange between server and client
+*/
+class cmd_terminal : public command {
+
+//Special member function not supported (yet)
+	cmd_terminal(const cmd_terminal&) = delete;
+	cmd_terminal(const cmd_terminal&&) = delete;
+	cmd_terminal& operator=(const cmd_terminal&) = delete;
+	cmd_terminal& operator=(const cmd_terminal&&) = delete;
+public:
+//C-tors
+	/**
+	* A c-tor for terminal command
+	*/
+	cmd_terminal() noexcept;
+
+
+//Virtual method overrides
+
+	/**
+	* Overrides a method adding metadata.
+ 	*/
+	void dress() noexcept override;
+	/**
+	* Overrides a method removing metadata.
+ 	*/
+	void strip() noexcept override;
+
+	/**
+	* Overridden method to process command.
+	* @return a nullptr
+	*/
+	command* process() noexcept override;
+
+	/**
+	* Overridden method to stringify command.
+	* Sets stringstream to "".
+	*/
+	void stringify(std::stringstream& sstr) const noexcept override;
+};
+
+
+
+/**
+* A class used for managing message send requests from client
+*/
 class cmd_msg_out_request : public command {
 
 //Special member function not supported (yet)
 	cmd_msg_out_request(const cmd_msg_out_request&) = delete;
+	cmd_msg_out_request(const cmd_msg_out_request&&) = delete;
 	cmd_msg_out_request& operator=(const cmd_msg_out_request&) = delete;
+	cmd_msg_out_request& operator=(const cmd_msg_out_request&&) = delete;
 public:
-//@section C-tors
-
-	/*
-	@brief c-tor that gui uses to initialize command to be send
+//C-tors
+	/**
+	* A c-tor that gui uses to initialize command to be send
 	*/
 	cmd_msg_out_request(MSNGR_CHATID_T ch_id, MSNGR_TIME_T t,
 				 std::string m) noexcept;
 
-	/*
-	@brief c-tor that command factory uses to initialize command at server side,
-	@param cmd_val, a JSON object pointer 
-	@param originator_user_id, a user_id of the sender
+	/**
+	* A c-tor that command factory uses to initialize command at server side,
+	* @param cmd_val, a JSON object pointer 
+	* @param originator_user_id, a user_id of the sender
 	*/
 	cmd_msg_out_request(const MSNGR_USERID_T originator_user_id,
 				const Poco::JSON::Object::Ptr cmd_val) noexcept;
 
-//@section Virtual method overrides
-
-	/*
-	@brief write msg_out_request into provided string with metadata
+//Virtual method overrides
+	/**
+	* Overrides a method adding metadata
  	*/
-	void dressed_stringify(std::stringstream& str) noexcept override;
-
-	/*
-	@brief write msg_out_request into provided string without metadata
+	void dress() noexcept override;
+	/**
+	* Overrides a method removing metadata
  	*/
-	virtual void stripped_stringify(std::stringstream& str) noexcept override;
+	void strip() noexcept override;
 
-	/*
-	@brief process msg_out_request, 
-	update corresponding chat,
-	check if members of the chat / recipinet is online,
-	if true, send updates of the chat to the participants / recipient,
-	@return command with msg_out_response 
+	/**
+	* Overridden method to process msg_out_request, 
+	* update corresponding chat,
+	* check if members of the chat / recipient is online,
+	* if true, send updates of the chat to the participants / recipient,
+	* @return command with msg_out_response 
 	*/
 	command* process() noexcept override;
-
-
-//@section Initializers of JSON object (m_cmd_val inherited)
-/*
-	void set_chat_id();
-	void set_time();
-	void set_msg_txt();
-*/
 };
-
-////////////// command leftovers
-
-
-//@section Specific processing, invoking model interfaces
-	/*
-	@brief process signup request per model,
-	check availability of username, create user record
-	@return command with response
-	*/
-//	command_t signup_request();
-
-	/*
-	@brief terminal processing of signup response to 
-	update view, calling view's methods, either
-	gui.signup_success() or gui.signup.failure()
-	@return null/empty command
-	*/
-//	command_t signup_response();
-	
-//	command_t login_request();
-	
-//	command_t login_response();
-
-
-
-
-//TODO: DISSIMINATE
-//private:
-	//Special member function not supported (yet)
-//@section Special member functions
-
-
-
 
 #endif //COMMANDS
