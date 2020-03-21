@@ -42,11 +42,11 @@ uic_flags :=
 # Note: It is not recommended to overwrite the value (don't use := operator).
 # 
 cflags += -I$(HOME)/poco/Net/include \
-		-I$(HOME)/poco/Foundation/include \
-		-std=c++17 \
+		  -I$(HOME)/poco/Foundation/include \
+		  -std=c++17 \
 
 compiler_flags += -I$(HOME)/poco/Net/include \
-				-I$(HOME)/poco/Foundation/include \
+				  -I$(HOME)/poco/Foundation/include \
 
 
 # The linker flags can be updated/overwritten for the project

@@ -25,11 +25,16 @@ signup::signup(QWidget* parent): QWidget(parent)
 void signup::submit_form()
 {
     QString user_name = m_user_name->text().trimmed();
-    if (user_name.isEmpty()) {
+    if (user_name.isEmpty()) 
+    {
         QMessageBox::critical(this, "Error", "Username cannot be empty");
-    } else if (user_name.contains(QStringLiteral(" "))) {
+    } 
+    else if (user_name.contains(QStringLiteral(" "))) 
+    {
         QMessageBox::critical(this, "Error", "Username cannot contain space");        
-    } else {
+    } 
+    else 
+    {
         client client_obj;
         client_obj.sign_up_helper(user_name.toStdString());
     }
