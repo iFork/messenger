@@ -129,5 +129,8 @@ Type following command for seeing the documentation.
 Type following command for running server.
        ./bin/server
 
-Type following command for running client.
-       ./bin/gui
+Type following command for running messenger.
+       ./bin/messenger_exe
+	   
+Type following command for running json parser.
+       ./bin/parser

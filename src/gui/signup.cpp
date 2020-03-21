@@ -31,6 +31,9 @@ void signup::submit_form()
         QMessageBox::critical(this, "Error", "Username cannot contain space");        
     } else {
         client client_obj;
-        client_obj.log_in_helper(user_name.toStdString());
+       // client_obj.log_in_helper(user_name.toStdString());
+		/*signup.cpp: In member function ‘void signup::submit_form()’:
+		  signup.cpp:34:55: error: cannot bind non-const lvalue reference of type ‘std::string&’ {aka ‘std::__cxx11::basic_string<char>&’} to an rvalue of type ‘std::string’ {aka ‘std::__cxx11::basic_string<char>’}
+		  34 |         client_obj.log_in_helper(user_name.toStdString());*/
     }
 }

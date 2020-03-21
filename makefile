@@ -38,13 +38,13 @@ prefix := $(HOME)
 # Example:
 # projects := src/project1 src/project2
 #
-projects :=  \
-	src/shared \
-	src/commands \
-	src/client \
-	src/gui \
-	src/server \
-	src/parser\
+projects := src/shared \
+			src/commands \
+			src/client \
+			src/gui \
+			src/server \
+			src/parser\
+			src/messenger_exe
 
 # Prerequisite tools
 preconditions := gcc doxygen ar ln pkg-config lcov
@@ -101,6 +101,7 @@ include $(mkf_path)/doc.mk
 
 # Dependencies between projects
 #
-src/gui: src/commands src/client 
+#src/gui: src/commands src/client 
 src/server: src/commands
 src/client: src/shared
+src/messenger_exe: src/gui src/client src/commands
