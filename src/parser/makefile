@@ -17,12 +17,11 @@
 #
 
 # The source files under the project.
-cpp_files := main.cpp \
-			 json_parser.cpp \
+cpp_files := json_parser.cpp
 
 # The header files under the project, which are supposed to be used by other
 # projects.
-public_headers :=
+public_headers := json_parser.hpp
 
 # Building QT project.
 # TODO: Add detailed comments.
@@ -82,7 +81,7 @@ linker_flags += -lstdc++ -ldl \
 # Note: Specifying the library version is not supported.
 #
 
-libs :=	#x$(HOME)/Desktop/chem_jogum/poco/lib/Linux/$(architecture) \
+libs :=
 
 # Library version
 #
@@ -108,4 +107,4 @@ lib_version :=
 # (by default $(project_root)/lib/).
 #
 
-include $(mkf_path)/exe.mk
+include $(mkf_path)/lib.mk

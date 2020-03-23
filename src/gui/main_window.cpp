@@ -6,10 +6,10 @@
 #include <QWidget>
 #include <QStackedWidget>
 #include <QPushButton>
+#include <QRegExp>
 
 main_window::main_window(QWidget* parent): QMainWindow(parent)
 {
-   
     init_ui();
     init_connection();
 }

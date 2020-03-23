@@ -9,6 +9,7 @@
  */
 
 // includes from this project
+#include "../parser/json_parser.hpp"
 #include "../gui/main_window.hpp"
 #include "../gui/chat_box.hpp"
 #include "../gui/login.hpp"
@@ -26,18 +27,27 @@
 
 // includes from C++ libraries
 #include <iostream>
+#include <fstream>
+
+using namespace Poco::JSON;
+using namespace Poco::Dynamic;
 
 int main(int argc, char* argv[])
 {
+	// checking parsers work (should be deleted)
+	//
+	checking_parser_work();
+	// opens the chat window
+	//
     QApplication app(argc, argv);
-
     main_window window;
     window.show();
+	// creating client connection
+	//
     try 
     {
       client(); 
-    } catch(Poco::Net::NetException& e) 
-    {
+    } catch(Poco::Net::NetException& e) {
         std::cout << e.what() << std::endl;
     }
     return app.exec();

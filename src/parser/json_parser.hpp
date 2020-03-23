@@ -72,4 +72,6 @@ bool file_writer(File_writer& w, std::string& file, std::string& json_format);
 /// @name This function is printing the parser result
 void print_after_pars(std::string& json_file, Object::Ptr& json_object_value);
 
+void checking_parser_work();
+
 #endif // __JSON_PARSER_HPP__ json_parser.cpp
