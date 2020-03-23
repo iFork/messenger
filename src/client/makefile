@@ -44,9 +44,11 @@ uic_flags :=
 cflags += -I$(HOME)/poco/Net/include \
 		-I$(HOME)/poco/Foundation/include \
 		-std=c++17 \
+		-I$(HOME)/poco/JSON/include \  #for commands
 
 compiler_flags += -I$(HOME)/poco/Net/include \
 				-I$(HOME)/poco/Foundation/include \
+		-I$(HOME)/poco/JSON/include \  #for commands
 
 
 # The linker flags can be updated/overwritten for the project

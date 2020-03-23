@@ -17,11 +17,11 @@
 #
 
 # The source files under the project.
-cpp_files := commands.cpp \
+cpp_files := user.cpp \
 
 # The header files under the project, which are supposed to be used by other
 # projects.
-public_headers := commands.hpp \
+public_headers := user.hpp \
 
 # Building QT project.
 # TODO: Add detailed comments.
@@ -40,15 +40,10 @@ uic_flags :=
 # compiler_flags := $(filter-out -Wshadow -Wconversion, $(compiler_flags))
 # 
 # Note: It is not recommended to overwrite the value (don't use := operator).
-#
+# 
+cflags += -std=c++17 \
 
-compiler_flags := $(filter-out -Werror -Wconversion, $(compiler_flags))
- 
-compiler_flags += -I$(HOME)/poco/JSON/include \
-				-I$(HOME)/poco/Foundation/include \
-
-cflags += -I$(HOME)/poco/JSON/include \
-        -I$(HOME)/poco/Foundation/include \
+compiler_flags +=
 
 # The linker flags can be updated/overwritten for the project
 #
@@ -57,8 +52,8 @@ cflags += -I$(HOME)/poco/JSON/include \
 #
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
+architecture := $(shell uname -m)
 linker_flags += -lstdc++ -ldl \
-	-lPocoJSON -lPocoFoundation -L/$(HOME)/poco/lib/Linux/x86_64 \
 
 # The libraries which should be linked to the current project. The link type is
 # specified as a global parameter, except the libraries, which are built as a
@@ -72,7 +67,7 @@ linker_flags += -lstdc++ -ldl \
 # 
 # Note: Specifying the library version is not supported.
 #
-libs := \
+libs :=  # commands \
 
 # Library version
 #
