@@ -1,18 +1,20 @@
-#ifndef LOGIN_HPP
-#define LOGIN_HPP
+#ifndef SIGNUP_HPP
+#define SIGNUP_HPP
 
+// includes from QT library
 #include <QWidget>
 
+// forward declarations from QT library
 class QLineEdit;
 class QPushButton;
 class QVBoxLayout;
 
-class login: public QWidget
+class signup: public QWidget
 {
 Q_OBJECT
 public:
-    login(QWidget* parent = Q_NULLPTR);
-    ~login(){};
+    signup(QWidget* parent = Q_NULLPTR);
+    ~signup(){};
 private:
     QVBoxLayout *m_layout;
     QLineEdit* m_user_name;
@@ -24,4 +26,4 @@ private slots:
     void submit_form();
 };
 
-#endif // LOGIN_HPP
+#endif // SIGNUP_HPP

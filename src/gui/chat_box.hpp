@@ -1,8 +1,20 @@
-#ifndef CHATTERBOX_HPP
-#define CHATTERBOX_HPP
+/**
+ * @file chat_box.hpp
+ *
+ * @author ITC students 2020
+ * E-mail: xxx@xxxxx.xxx
+ * 134/1 Tsarav Aghbyur St.,
+ * Yerevan, 0052, Armenia
+ * Tel:  xxxxxx
+ */
 
+#ifndef CHAT_BOX_HPP
+#define CHAT_BOX_HPP
+
+// Headers from third party libraries
 #include <QWidget>
 
+// Forward declarations
 class QGridLayout;
 class QMenuBar;
 class QMenu;
@@ -11,13 +23,22 @@ class QLineEdit;
 class QPushButton;
 class QLabel;
 
-class ChatterBox: public QWidget
+/**
+ *@brief Definition of class ChatterBox
+ * It display the interface of the main window
+ * with the logged in user's data (user name, messages)
+ * It gives opportunity to send/receive  messages with the other user.
+ * There are many other options that can be implemented request later on.
+ */
+
+class ChatBox: public QWidget
 {
-//    Q_OBJECT
+    Q_OBJECT
     public:
-        ChatterBox(QWidget* parent = 0);
-		~ChatterBox(){}
-		
+    //Constructor
+    ChatBox(QWidget* parent = Q_NULLPTR);
+    ///Destructor
+    ~ChatBox(){};
     private:
         QGridLayout* m_glayout;
         QMenuBar* m_menu_bar;
@@ -38,4 +59,4 @@ class ChatterBox: public QWidget
         QLabel* m_smile;
 };
 
-#endif
+#endif // CHAT_BOX

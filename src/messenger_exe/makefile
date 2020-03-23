@@ -17,26 +17,15 @@
 #
 
 # The source files under the project.
-cpp_files := login.cpp \
-			 chat_box.cpp \
-			 main_window.cpp \
-			 signup.cpp \
+cpp_files := main.cpp
 
 # The header files under the project, which are supposed to be used by other
 # projects.
-public_headers := login.hpp \
-				  chat_box.hpp \
-				  main_window.hpp \
-				  signup.hpp \
-
+public_headers :=
 
 # Building QT project.
 # TODO: Add detailed comments.
-qt_headers := \
-			  signup.hpp \
-			  main_window.hpp \
-			  chat_box.hpp \
-			  login.hpp \
+qt_headers := 
 
 moc_flags :=
 
@@ -51,15 +40,18 @@ uic_flags :=
 # compiler_flags := $(filter-out -Wshadow -Wconversion, $(compiler_flags))
 # 
 # Note: It is not recommended to overwrite the value (don't use := operator).
-#
-
+# 
 cflags += -fPIC \
 		  -I$(HOME)/poco/Net/include \
+		  -I$(HOME)/poco/JSON/include \
 		  -I$(HOME)/poco/Foundation/include \
-		  -std=c++17 \
+		  -L$(HOME)/poco/lib/Linux/$(architecture) \
+		  -std=c++17
 
 compiler_flags += -I$(HOME)/poco/Net/include \
+				  -I$(HOME)/poco/JSON/include \
 				  -I$(HOME)/poco/Foundation/include \
+				  -L$(HOME)/poco/lib/Linux/$(architecture)
 
 compiler_flags := $(filter-out -Werror -Wconversion, $(compiler_flags))
 
@@ -70,9 +62,12 @@ compiler_flags := $(filter-out -Werror -Wconversion, $(compiler_flags))
 #
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
+architecture := $(shell uname -m)
 linker_flags += -lstdc++ -ldl \
-				-lPocoNet -lPocoFoundation \
-				-L$(HOME)/poco/lib/Linux/i686 -L$(HOME)/poco/lib/Linux/x86_64 \
+				-lPocoNet \
+				-lPocoFoundation \
+				-lPocoJSON \
+				-L$(HOME)/poco/lib/Linux/$(architecture)
 
 # The libraries which should be linked to the current project. The link type is
 # specified as a global parameter, except the libraries, which are built as a
@@ -86,11 +81,14 @@ linker_flags += -lstdc++ -ldl \
 # 
 # Note: Specifying the library version is not supported.
 #
-libs := commands \
+
+libs :=	commands \
 		client \
+		gui\
+		parser \
 		Qt5Gui \
 		Qt5Widgets \
-		Qt5Core \
+		Qt5Core
 
 # Library version
 #
@@ -116,4 +114,4 @@ lib_version :=
 # (by default $(project_root)/lib/).
 #
 
-include $(mkf_path)/lib.mk
+include $(mkf_path)/exe.mk

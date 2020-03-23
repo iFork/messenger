@@ -104,4 +104,4 @@ include $(mkf_path)/doc.mk
 
 src/server: src/commands
 src/client: src/shared
-src/messenger_exe: src/gui src/client src/commands
+src/messenger_exe: src/gui src/client src/commands src/parser
