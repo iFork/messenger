@@ -98,6 +98,7 @@ void cmd_terminal::strip() noexcept
 command* cmd_terminal::process() noexcept
 {
 	command* response = nullptr;
+	return response;
 }
 
 void cmd_terminal::stringify(std::stringstream& sstr) const noexcept
@@ -367,6 +368,7 @@ command* cmd_msg_out_request::process() noexcept
 	assert((std::is_same<MSNGR_TIME_T, std::string>::value));
 			//ASSUMPTION: MSNGR_TIME_T is string, otherwise
 			//additional pre-processing may be needed
+	return response;
 }
 
 } // namespace commands

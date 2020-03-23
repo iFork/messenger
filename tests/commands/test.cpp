@@ -55,9 +55,6 @@ request-process-response <-> response-process-request loop
 
 	
 /*
-	//if(not terminal) - dress, stringify, 
-		//send
-	//else
 
 	//NOTE: Alternative to cmd_terminal may be using nullptr and always doing 
 	//nullptr check before prepping result of process()
@@ -72,6 +69,8 @@ request-process-response <-> response-process-request loop
 		//send
 	}
 */	
+
+using namespace messenger::commands;
 
 void signup_testrun_verbose()
 {
