@@ -1,5 +1,5 @@
 /**
- * @file src/chat_box.hpp
+ * @file chat_box.hpp
  *
  * @author ITC students 2020
  * E-mail: xxx@xxxxx.xxx

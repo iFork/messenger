@@ -1,5 +1,5 @@
 /**
- * @file /main.cpp
+ * @file messenger_exe/main.cpp
  *
  * @author ITC students, 2020
  * E-mail: xxx@xxx.xxx
