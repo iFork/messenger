@@ -5,7 +5,7 @@
  * @file json_parser.hpp
  * @brief Common declaration for the Json Parser library
  * @author Vardan Vardanyan
- * Instigate Training Center Foundation, Yerevan, 2020
+ * @name Instigate Training Center Foundation, Yerevan, 2020
  * @details This library is parsing the ".txt" format file to ".json" format
  * @todo Returns the given key value.
  */
@@ -69,9 +69,11 @@ std::string get_value(Object::Ptr json_object, const char* key_from_json);
 bool file_reader(File_reader& f, std::string& file);
 /// @name This function is writing to file
 bool file_writer(File_writer& w, std::string& file, std::string& json_format);
-/// @name This function is printing the parser result
+/// @name This function is printing the value of given key (unnessery, would be
+//deleted)
 void print_after_pars(std::string& json_file, Object::Ptr& json_object_value);
-
+/// @name This function is printing the parser result (unnessery, would be
+//deleted)
 void checking_parser_work();
 
 #endif // __JSON_PARSER_HPP__ json_parser.cpp

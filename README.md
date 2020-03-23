@@ -11,13 +11,19 @@ This is the README file for Messenger project which provides communication betwe
 
 src/               : The source codes of the projects.
     
-    server/        : The source code of the server project.
-
     client/        : The source code of the client project.
+
+    commands/      : The commands.
 
     gui/           : The source code of the gui project.
 
-    commands/      : The commands.
+	messenger_exe  : The main function of this project. Runs the messenger and
+					 creats connection to server.
+
+	parser/		   : The source code of the json parser.
+
+    server/        : The source code of the server project. Has it's own main
+				     function which runs the server and waiting for user connection.
 
 mkf/               : GNU make scripts which are used for building/running the
                      project.
@@ -131,6 +137,3 @@ Type following command for running server.
 
 Type following command for running messenger.
        ./bin/messenger_exe
-	   
-Type following command for running json parser.
-       ./bin/parser

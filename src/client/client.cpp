@@ -2,7 +2,7 @@
  * @file client.cpp
  * @brief Implementation for the client library
  * @author ITC students
- * Instigate Training Center Foundation, Yerevan, 2020
+ * @name Instigate Training Center Foundation, Yerevan, 2020
  */
 
 // includes from this project
