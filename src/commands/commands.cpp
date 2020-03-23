@@ -3,6 +3,8 @@
 
 #include <cassert>
 
+namespace messenger {
+namespace commands {
 
 //Command Implementation
 //Static Methods Implementation
@@ -77,6 +79,31 @@ inline void command::dress_helper(command_category cmd_cat) noexcept
 	m_cmd_val = new_cmd;
 }
 
+//Implementation of cmd_terminal
+//C-tors
+cmd_terminal::cmd_terminal() noexcept
+{
+	m_cmd_val = nullptr;
+}
+
+//Virtual Method Overrides
+void cmd_terminal::dress() noexcept
+{
+}
+
+void cmd_terminal::strip() noexcept
+{
+}
+
+command* cmd_terminal::process() noexcept
+{
+	command* response = nullptr;
+}
+
+void cmd_terminal::stringify(std::stringstream& sstr) const noexcept
+{
+	sstr.str("");
+}
 
 //Implementation of cmd_signup_request
 //C-tors
@@ -237,33 +264,6 @@ command* cmd_signup_response::process() noexcept
 
 }
 
-//Implementation of cmd_terminal
-//C-tors
-cmd_terminal::cmd_terminal() noexcept
-{
-	m_cmd_val = nullptr;
-}
-
-
-//Virtual Method Overrides
-
-void cmd_terminal::dress() noexcept
-{
-}
-
-void cmd_terminal::strip() noexcept
-{
-}
-
-command* cmd_terminal::process() noexcept
-{
-	command* response = nullptr;
-}
-
-void cmd_terminal::stringify(std::stringstream& sstr) const noexcept
-{
-	sstr.str("");
-}
 
 //Implementation of cmd_msg_out_request
 //C-tors
@@ -340,15 +340,8 @@ command* cmd_msg_out_request::process() noexcept
 	//chat_file ch_f(chat_id)
 	//stringify(sstr)...
 	/*
-	TODO:ADD and RENAME  Stringify methods : 
-	 this stringiofyer should strip away meta-data, cmd category 
-	have strip_/stringify_strip or bare_stringify or pack_string
-// {"author_id":1,"chat_id":12,"msg_txt":"Hello msg out request","time":"12:30"}
-	 strip downed version for saving / storing 
 	      //TO STRIP away before writing 
 		- E.G.  cmd_cat, cmd_val->chat_id
-	So this cannot be universal function for all subtypes but each subtype
-	must/can (?) OVERRIDE it before passing to model-updater (?) 
 	 / db writer
 	*/
 
@@ -365,7 +358,7 @@ command* cmd_msg_out_request::process() noexcept
 		//msg_in = new cmd_msg_in_response()
 		//server.send_to_user(user_id, msg_in.stringify())
 		//command response = new cmd_cat_response()
-		//or terminal command - new cmd_respondse(none)
+		//or terminal command 
 	//elif 
 		//return cmd_msg_out_response (?) 
 
@@ -375,3 +368,6 @@ command* cmd_msg_out_request::process() noexcept
 			//ASSUMPTION: MSNGR_TIME_T is string, otherwise
 			//additional pre-processing may be needed
 }
+
+} // namespace commands
+} //namespace messenger

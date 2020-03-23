@@ -21,11 +21,8 @@ This file is a part of the controller module of the app (in terms of MVC).
 #include <string>
 #include <sstream>
 
-/*
-#define std::string MSNGR_TIME_T 
-#define MSNGR_USERID_T int
-#define MSNGR_CHATID_T int
-*/
+namespace messenger {
+namespace commands {
 
 typedef std::string MSNGR_TIME_T;
 typedef std::string MSNGR_USERID_T;
@@ -35,10 +32,6 @@ typedef int MSNGR_CHATID_T;
 * Enum for command categories.
 */
 enum class command_category {
-	//none = 0, 
-		//may serve as a default value ?
-		//null/terminal command
-		//TODO move to the end
 	signup_request,
 	signup_response,
 	login_request,
@@ -136,10 +129,50 @@ protected:
 
 };
 
+/**
+* A class used for terminating response and request exchange between server and client
+*/
+class cmd_terminal : public command {
 
+//Special member function not supported (yet)
+	cmd_terminal(const cmd_terminal&) = delete;
+	cmd_terminal(const cmd_terminal&&) = delete;
+	cmd_terminal& operator=(const cmd_terminal&) = delete;
+	cmd_terminal& operator=(const cmd_terminal&&) = delete;
+public:
+//C-tors
+	/**
+	* A c-tor for terminal command
+	*/
+	cmd_terminal() noexcept;
+
+
+//Virtual method overrides
+
+	/**
+	* Overrides a method adding metadata.
+ 	*/
+	void dress() noexcept override;
+	/**
+	* Overrides a method removing metadata.
+ 	*/
+	void strip() noexcept override;
+
+	/**
+	* Overridden method to process command.
+	* @return a nullptr
+	*/
+	command* process() noexcept override;
+
+	/**
+	* Overridden method to stringify command.
+	* Sets stringstream to "".
+	*/
+	void stringify(std::stringstream& sstr) const noexcept override;
+};
 
 /**
-* A class used for managing signup requests from client
+* A class used for managing sign up requests from client
 */
 class cmd_signup_request : public command {
 
@@ -195,7 +228,7 @@ class cmd_signup_response : public command {
 public:
 //C-tors
 	/**
-	* A c-tor that server uses to initialize command to be send
+	* A c-tor that server uses to initialize command to be processed
 	* @param status_code, an int, 0 if successful, 1 otherwise
 	* @param user_id, string, if status_code is successful, it 
 	* contains user_id successfully signed up with
@@ -224,53 +257,102 @@ public:
 	* Overridden method to process command at client side,
 	* if successful, create create user file at client end,
 	* @return a terminal command 
-//TODO:a type for terminal command as no further processing is needed
 	*/
 	command* process() noexcept override;
 
 };
 
 /**
-* A class used for terminating response and request exchange between server and client
+* A class used for managing login requests from client
 */
-class cmd_terminal : public command {
+class cmd_login_request : public command {
 
 //Special member function not supported (yet)
-	cmd_terminal(const cmd_terminal&) = delete;
-	cmd_terminal(const cmd_terminal&&) = delete;
-	cmd_terminal& operator=(const cmd_terminal&) = delete;
-	cmd_terminal& operator=(const cmd_terminal&&) = delete;
+	cmd_login_request(const cmd_login_request&) = delete;
+	cmd_login_request(const cmd_login_request&&) = delete;
+	cmd_login_request& operator=(const cmd_login_request&) = delete;
+	cmd_login_request& operator=(const cmd_login_request&&) = delete;
 public:
 //C-tors
 	/**
-	* A c-tor for terminal command
+	* A c-tor that gui uses to initialize command to be send
+	* @param user_id to log in
 	*/
-	cmd_terminal() noexcept;
-
-
-//Virtual method overrides
+	cmd_login_request(MSNGR_USERID_T user_id) noexcept;
 
 	/**
-	* Overrides a method adding metadata.
+	* A c-tor that command factory uses to initialize command at server side,
+	* @param cmd_val, a JSON object pointer 
+	*/
+	cmd_login_request(const Poco::JSON::Object::Ptr cmd_val) noexcept;
+
+//Virtual method overrides
+	/**
+	* Overrides a method adding metadata
  	*/
 	void dress() noexcept override;
 	/**
-	* Overrides a method removing metadata.
+	* Overrides a method removing metadata
  	*/
 	void strip() noexcept override;
 
 	/**
-	* Overridden method to process command.
-	* @return a nullptr
+	* Overridden method to process command, 
+	* check if user_id exists to log into,
+	* if yes, read user file,
+	* @return command with login_response
 	*/
 	command* process() noexcept override;
 
-	/**
-	* Overridden method to stringify command.
-	* Sets stringstream to "".
-	*/
-	void stringify(std::stringstream& sstr) const noexcept override;
 };
+
+/**
+* A class used for managing server's responses to login requests
+*/
+class cmd_login_response : public command {
+
+//Special member function not supported (yet)
+	cmd_login_response(const cmd_login_response&) = delete;
+	cmd_login_response(const cmd_login_response&&) = delete;
+	cmd_login_response& operator=(const cmd_login_response&) = delete;
+	cmd_login_response& operator=(const cmd_login_response&&) = delete;
+public:
+//C-tors
+	/**
+	* A c-tor that server uses to initialize command to be processed
+	* @param status_code, an int, 0 if successful, 1 otherwise
+	* @param user_json, if status_code is successful, 
+	* a JSON object pointer containing db entry for the logged in user.
+	*/
+	cmd_login_response(const int status_code, 
+			Poco::JSON::Object::Ptr user_json = nullptr ) noexcept;
+
+	/**
+	* A c-tor that command factory uses to initialize command at client side,
+	* @param cmd_val, a JSON object pointer 
+	*/
+	cmd_login_response(const Poco::JSON::Object::Ptr cmd_val) noexcept;
+
+//Virtual method overrides
+	/**
+	* Overrides a method adding metadata
+ 	*/
+	void dress() noexcept override;
+	/**
+	* Overrides a method removing metadata
+ 	*/
+	void strip() noexcept override;
+
+	/**
+	* Overridden method to process command at client side,
+	* if successful, overwrite user file at client end,
+	* @return a terminal command 
+	*/
+	command* process() noexcept override;
+
+};
+
+
 
 
 
@@ -319,5 +401,8 @@ public:
 	*/
 	command* process() noexcept override;
 };
+
+} // namespace commands
+} //namespace messenger
 
 #endif //COMMANDS
