@@ -76,6 +76,8 @@ export install_path	:= $(strip $(install_path))
 export dbg_package
 export opt_package
 
+export architecture := $(shell uname -m)
+
 export echo := $(shell which echo)
 
 export result_suffix := results
