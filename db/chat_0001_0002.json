@@ -1,0 +1,15 @@
+{
+    "chat_file" : "chat_0001_0002.json",
+    "chat_id" : "chat_0001_0002",
+    "messages" : [
+        {
+            "author_id" : "0001",
+            "msg_id" : "02",
+            "text" : "Hello.Good!",
+            "time" : "12:50"
+        }
+    ],
+    "participants" : [
+        "0002"
+    ]
+}
