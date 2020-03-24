@@ -43,8 +43,9 @@ projects := src/shared \
 			src/client \
 			src/gui \
 			src/server \
-			src/parser\
-			src/messenger_exe
+			src/parser \
+			src/messenger_exe \
+			src/logger\
 
 # Prerequisite tools
 preconditions := gcc doxygen ar ln pkg-config lcov
