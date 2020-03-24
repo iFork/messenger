@@ -60,6 +60,8 @@ enum class command_category {
 			// never reach factory
 };
 
+//TODO: add @brief marker in doxygen blocks for nicety
+//however doxygen advises against unnecessary use of special markers
 
 /**
 * An abstract class with factory method to create appropriate
@@ -74,6 +76,7 @@ protected:
 	/**
 	* A bool flag to indicate if object was stripped after construction or not.
 	*/
+//TODO: Wrap in preprocesser macro - DEBUG
 	bool m_is_stripped;		
 	/**
 	* A bool flag to indicate if object was dressed after construction or not.
@@ -105,6 +108,7 @@ public:
 	* type of object to be created and "cmd_val" key which is used to
 	* initialize the object.
 	* @param originator_user_id, an id of the user who send the command
+//TODO add return line
 	*/
 	static command* request_factory(const MSNGR_USERID_T originator_user_id, 
 		const std::string& stringified_cmd) noexcept;
@@ -123,6 +127,7 @@ public:
 	* A pure virtual method to process command obj
 	*/
 	virtual command* process() noexcept = 0;
+//TODO : add special functions - = default even for abstract class
 
 //Helpers
 
@@ -132,6 +137,9 @@ public:
 	virtual void stringify(std::stringstream& str) const noexcept; 
 //TODO: pack for sending - pack(string) / dress + stringify
 //TODO: unpack for model updating - unpack(string) / strip + stringify
+//aka wrap - unwrap
+
+//TODO: Distribute classes into their own hpp-s
 
 protected:
 //Protected Helpers
@@ -142,9 +150,11 @@ protected:
 /**
 * A class used for terminating response and request exchange between server and client
 */
+//TODO: remove cmd_ prefixes from class names
+//rename to terminator
 class cmd_terminal : public command {
 
-//Special member function not supported (yet)
+//Special member function not supported
 	cmd_terminal(const cmd_terminal&) = delete;
 	cmd_terminal(const cmd_terminal&&) = delete;
 	cmd_terminal& operator=(const cmd_terminal&) = delete;
@@ -191,6 +201,8 @@ class cmd_signup_request : public command {
 	cmd_signup_request(const cmd_signup_request&&) = delete;
 	cmd_signup_request& operator=(const cmd_signup_request&) = delete;
 	cmd_signup_request& operator=(const cmd_signup_request&&) = delete;
+
+//TODO: add d-tors everywhere !!
 public:
 //C-tors
 	/**
