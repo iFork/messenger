@@ -70,11 +70,14 @@ request-process-response <-> response-process-request loop
 	}
 */	
 
-using namespace messenger::commands;
 
-void signup_testrun_verbose()
+void signup_testrun_verbose() noexcept //add noexcept in all cases when no exception is handled
+					//for performance reasons
+//TODO:A.S.: add asserts with model jsons or diff w/ golden
+//TODO:A.S.: use logger?
 {
 
+	using namespace messenger::commands;
 
 	//Signup request - response
 	std::cout << "Signup Request Test\n";

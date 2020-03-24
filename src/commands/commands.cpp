@@ -14,6 +14,9 @@ command* command::response_factory(const std::string& stringified_cmd) noexcept
 	// or assert here and validate externally ?-  static validate() func
 	Poco::JSON::Parser parser;
 	Poco::Dynamic::Var result = parser.parse(stringified_cmd); //using default ParseHandler
+	//NOTE: on catching poco exceptions inside a debug macro, but no added value since 
+	//this in our case shoud be asserted, not cought as runtime exceptions
+	//but poco throws exceptions. These are no substitute for assert so may Skip this.
 	Poco::JSON::Object::Ptr obj_p = 
 		result.extract<Poco::JSON::Object::Ptr>();
  	int cmd_cat = obj_p->getValue<int>("cmd_cat"); 
@@ -32,6 +35,7 @@ command* command::response_factory(const std::string& stringified_cmd) noexcept
 		default:
 			assert(false && "command category is not supported");
 	}
+	//TODO: use smart pointers when returning w/ new. use unique-ptr
 	return cmd;
 
 }
@@ -61,23 +65,31 @@ command* command::request_factory(const MSNGR_USERID_T originator_user_id,
 		default:
 			assert(false && "Command category is not supported");
 	}
+	//TODO: use smart pointers when returning w/ new. use unique-ptr
 	return cmd;
 }
 
 //Helper Implementation
 void command::stringify(std::stringstream& sstr) const noexcept
 {
+	//TODO: assert m_cmd_val != nullptr
 	m_cmd_val->stringify(sstr);
 }
+
+//TODO: move dress-helper before dress (in declarations??) - will be easy for linker
 
 inline void command::dress_helper(command_category cmd_cat) noexcept
 {
 	Poco::JSON::Object::Ptr new_cmd = new Poco::JSON::Object;
+//TODO: Rename fileds - cat to category
 	new_cmd->set("cmd_cat", static_cast<int>(cmd_cat));
 	assert(m_cmd_val != nullptr);
 	new_cmd->set("cmd_val", m_cmd_val);
 	m_cmd_val = new_cmd;
+	//no need to delete as poco's shared ptr handles this 
 }
+
+//TODO: use smart pointers / unique-ptr
 
 //Implementation of cmd_terminal
 //C-tors
@@ -97,8 +109,7 @@ void cmd_terminal::strip() noexcept
 
 command* cmd_terminal::process() noexcept
 {
-	command* response = nullptr;
-	return response;
+	return nullptr;
 }
 
 void cmd_terminal::stringify(std::stringstream& sstr) const noexcept
@@ -158,10 +169,10 @@ void cmd_signup_request::strip() noexcept
 command* cmd_signup_request::process() noexcept
 {
 	command* response = nullptr;
+	//TODO - assert m_cmd_vall != nullptr
 	MSNGR_USERID_T user_id = m_cmd_val->getValue<MSNGR_USERID_T>("user_id");
 
 	std::cout << "user id to find is:" << user_id << std::endl;
-
 	assert((std::is_same<MSNGR_USERID_T, std::string>::value));
 			//ASSUMPTION: MSNGR_USERID_T is string, otherwise
 			//additional pre-processing may be needed
@@ -177,6 +188,7 @@ command* cmd_signup_request::process() noexcept
 		response = new cmd_signup_response(1);
 	}
 	return response;		
+	//use uniqe ptr
 }
 
 
