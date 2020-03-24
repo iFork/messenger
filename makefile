@@ -103,6 +103,6 @@ include $(mkf_path)/doc.mk
 # Dependencies between projects
 #
 
-src/server: src/commands
+src/server: src/commands src/logger
 src/client: src/shared
 src/messenger_exe: src/gui src/client src/commands src/parser

@@ -44,13 +44,9 @@ uic_flags :=
 cflags += -I$(HOME)/poco/Net/include \
 		-I$(HOME)/poco/Foundation/include \
 		-std=c++17 \
-		-I$(HOME)/poco/JSON/include \  #for commands
 
 compiler_flags += -I$(HOME)/poco/Net/include \
 				-I$(HOME)/poco/Foundation/include \
-		-I$(HOME)/poco/JSON/include \  #for commands
-
-
 
 # The linker flags can be updated/overwritten for the project
 #
@@ -59,11 +55,9 @@ compiler_flags += -I$(HOME)/poco/Net/include \
 #
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
-architecture := $(shell uname -m)
 linker_flags += -lstdc++ -ldl \
-				-lPocoNet -lPocoFoundation\
+				-lPocoNet -lPocoFoundation \
 				-L$(HOME)/poco/lib/Linux/$(architecture) \
-				
 
 # The libraries which should be linked to the current project. The link type is
 # specified as a global parameter, except the libraries, which are built as a

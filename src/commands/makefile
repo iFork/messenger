@@ -41,14 +41,14 @@ uic_flags :=
 # 
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
+cflags += -I$(HOME)/poco/JSON/include \
+        -I$(HOME)/poco/Foundation/include \
+		-std=c++17 \
 
-compiler_flags := $(filter-out -Werror -Wconversion, $(compiler_flags))
- 
 compiler_flags += -I$(HOME)/poco/JSON/include \
 				-I$(HOME)/poco/Foundation/include \
 
-cflags += -I$(HOME)/poco/JSON/include \
-        -I$(HOME)/poco/Foundation/include \
+compiler_flags := $(filter-out -Werror -Wconversion, $(compiler_flags))
 
 # The linker flags can be updated/overwritten for the project
 #
@@ -58,7 +58,8 @@ cflags += -I$(HOME)/poco/JSON/include \
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
 linker_flags += -lstdc++ -ldl \
-	-lPocoJSON -lPocoFoundation -L/$(HOME)/poco/lib/Linux/x86_64 \
+				-lPocoJSON -lPocoFoundation \
+				-L$(HOME)/poco/lib/Linux/$(architecture) \
 
 # The libraries which should be linked to the current project. The link type is
 # specified as a global parameter, except the libraries, which are built as a

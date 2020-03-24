@@ -44,13 +44,11 @@ uic_flags :=
 cflags += -I$(HOME)/poco/Net/include \
 		  -I$(HOME)/poco/JSON/include \
 		  -I$(HOME)/poco/Foundation/include \
-		  -L$(HOME)/poco/lib/Linux/$(architecture) \
 		  -std=c++17 \
 
 compiler_flags += -I$(HOME)/poco/Net/include \
 				  -I$(HOME)/poco/JSON/include \
 				  -I$(HOME)/poco/Foundation/include \
-				  -L$(HOME)/poco/lib/Linux/$(architecture) \
 
 compiler_flags := $(filter-out -Werror -Wconversion, $(compiler_flags))
 
@@ -61,7 +59,6 @@ compiler_flags := $(filter-out -Werror -Wconversion, $(compiler_flags))
 #
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
-architecture := $(shell uname -m)
 linker_flags += -lstdc++ -ldl \
 				-lPocoNet \
 				-lPocoFoundation \

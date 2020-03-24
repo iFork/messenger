@@ -42,7 +42,7 @@ uic_flags :=
 # 
 # Note: It is not recommended to overwrite the value (don't use := operator).
 # 
-cflags += -std=c++17 \
+#cflags += -std=c++17 \
 
 compiler_flags += 
 
@@ -54,7 +54,6 @@ compiler_flags +=
 #
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
-architecture := $(shell uname -m)
 linker_flags += -lstdc++ -ldl \
 				
 
@@ -70,7 +69,7 @@ linker_flags += -lstdc++ -ldl \
 # 
 # Note: Specifying the library version is not supported.
 #
-libs := logger \
+libs := \
 
 # Library version
 #

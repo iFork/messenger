@@ -41,7 +41,7 @@ uic_flags :=
 # 
 # Note: It is not recommended to overwrite the value (don't use := operator).
 # 
-cflags += -std=c++17 \
+cflags += #-std=c++17 \
 
 compiler_flags +=
 
@@ -52,7 +52,6 @@ compiler_flags +=
 #
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
-architecture := $(shell uname -m)
 linker_flags += -lstdc++ -ldl \
 
 # The libraries which should be linked to the current project. The link type is
