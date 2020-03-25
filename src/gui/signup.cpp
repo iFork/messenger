@@ -1,9 +1,14 @@
 #include "signup.hpp"
+#include "commands/commands.hpp"
 #include "client/client.hpp"
+
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QMessageBox>
+#include <sstream>
+#include <iostream>
+
 
 signup::signup(QWidget* parent): QWidget(parent)
 {
@@ -25,17 +30,28 @@ signup::signup(QWidget* parent): QWidget(parent)
 void signup::submit_form()
 {
     QString user_name = m_user_name->text().trimmed();
-    if (user_name.isEmpty()) 
-    {
+    if (user_name.isEmpty()) {
         QMessageBox::critical(this, "Error", "Username cannot be empty");
     } 
-    else if (user_name.contains(QStringLiteral(" "))) 
-    {
+    else if (user_name.contains(QStringLiteral(" "))) {
         QMessageBox::critical(this, "Error", "Username cannot contain space");        
     } 
-    else 
-    {
-        client client_obj;
-        client_obj.sign_up_helper(user_name.toStdString());
+    else {
+        using namespace messenger::commands;
+        cmd_signup_request signup_request(user_name.toStdString());
+        signup_request.dress();
+        std::stringstream ss;
+        signup_request.stringify(ss);
+        //client send
     }
+}
+
+void signup::handle_submit_success() 
+{
+
+}
+
+void signup::handle_submit_fail(const std::string& error_message) 
+{
+    QMessageBox::critical(this, "Error",  QString::fromUtf8(error_message.c_str()));
 }

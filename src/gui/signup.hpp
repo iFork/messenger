@@ -3,6 +3,7 @@
 
 // includes from QT library
 #include <QWidget>
+#include <string>
 
 // forward declarations from QT library
 class QLineEdit;
@@ -15,6 +16,8 @@ Q_OBJECT
 public:
     signup(QWidget* parent = Q_NULLPTR);
     ~signup(){};
+    void handle_submit_success();
+    void handle_submit_fail(const std::string& error_message);
 private:
     QVBoxLayout *m_layout;
     QLineEdit* m_user_name;

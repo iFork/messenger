@@ -1,12 +1,15 @@
 // includes from this project
 #include "login.hpp"
-#include "../client/client.hpp"
+#include "commands/commands.hpp"
+#include "client/client.hpp"
 
 // includes from QT library
 #include <QVBoxLayout>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QMessageBox>
+#include <sstream>
+#include <iostream>
 
 login::login(QWidget* parent): QWidget(parent)
 {
@@ -33,7 +36,21 @@ void login::submit_form()
     } else if (user_name.contains(QStringLiteral(" "))) {
         QMessageBox::critical(this, "Error", "Username cannot contain space");        
     } else {
-        client client_obj;
-        client_obj.log_in_helper(user_name.toStdString());
+        using namespace messenger::commands;
+        cmd_login_request login_request(user_name.toStdString());
+        login_request.dress();
+        std::stringstream ss;
+        login_request.stringify(ss);
+        //client send
     }
+}
+
+void login::handle_submit_success() 
+{
+
+}
+
+void login::handle_submit_fail(const std::string& error_message) 
+{
+    QMessageBox::critical(this, "Error",  QString::fromUtf8(error_message.c_str()));
 }
