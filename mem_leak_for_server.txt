@@ -1,0 +1,1063 @@
+==5919== Memcheck, a memory error detector
+==5919== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==5919== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==5919== Command: ./bin/server
+==5919== Parent PID: 5095
+==5919== 
+==5919== 
+==5919== Process terminating with default action of signal 2 (SIGINT)
+==5919==    at 0x51612C6: futex_wait_cancelable (futex-internal.h:80)
+==5919==    by 0x51612C6: __pthread_cond_wait_common (pthread_cond_wait.c:508)
+==5919==    by 0x51612C6: pthread_cond_wait@@GLIBC_2.3.2 (pthread_cond_wait.c:638)
+==5919==    by 0x4CAC22A: Poco::EventImpl::waitImpl() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x10D6D3: Poco::Event::wait() (Event.h:107)
+==5919==    by 0x10D47F: main (main.cpp:22)
+==5919== 
+==5919== FILE DESCRIPTORS: 6 open at exit.
+==5919== Open file descriptor 5:
+==5919==    at 0x4F17CBB: epoll_create (syscall-template.S:78)
+==5919==    by 0x4B69619: Poco::Net::SocketImpl::poll(Poco::Timespan const&, int) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4B7106E: Poco::Net::TCPServer::run() (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4D16D9B: Poco::ThreadImpl::runnableEntry(void*) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x515A668: start_thread (pthread_create.c:479)
+==5919==    by 0x4F17322: clone (clone.S:95)
+==5919== 
+==5919== Open AF_INET socket 4: 127.0.0.1:8000 <-> unbound
+==5919==    at 0x4F189CB: socket (syscall-template.S:78)
+==5919==    by 0x4B67F55: Poco::Net::SocketImpl::initSocket(int, int, int) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4B69A6B: Poco::Net::SocketImpl::bind(Poco::Net::SocketAddress const&, bool) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4B63D78: Poco::Net::ServerSocket::ServerSocket(Poco::Net::SocketAddress const&, int) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10D3C6: main (main.cpp:17)
+==5919== 
+==5919== Open file descriptor 3: /home/vardan/Desktop/Combining_files/messenger/mem_leak_for_server.txt
+==5919==    <inherited from parent>
+==5919== 
+==5919== Open file descriptor 2: /dev/pts/0
+==5919==    <inherited from parent>
+==5919== 
+==5919== Open file descriptor 1: /dev/pts/0
+==5919==    <inherited from parent>
+==5919== 
+==5919== Open file descriptor 0: /dev/pts/0
+==5919==    <inherited from parent>
+==5919== 
+==5919== 
+==5919== HEAP SUMMARY:
+==5919==     in use at exit: 89,213 bytes in 135 blocks
+==5919==   total heap usage: 156 allocs, 21 frees, 168,607 bytes allocated
+==5919== 
+==5919== 4 bytes in 1 blocks are still reachable in loss record 1 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x10C217: Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >::SharedPtr(Poco::Net::TCPServerConnectionFactory*) (SharedPtr.h:127)
+==5919==    by 0x10B99B: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 4 bytes in 1 blocks are still reachable in loss record 2 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4D18250: Poco::Thread::start(Poco::Runnable&) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x10D3F5: main (main.cpp:19)
+==5919== 
+==5919== 8 bytes in 1 blocks are still reachable in loss record 3 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CABE19: Poco::ErrorHandler::defaultHandler() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4C8C119: _GLOBAL__sub_I_ErrorHandler.cpp (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 8 bytes in 1 blocks are still reachable in loss record 4 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x10D36F: main (main.cpp:16)
+==5919== 
+==5919== 8 bytes in 1 blocks are still reachable in loss record 5 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x10B97C: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 8 bytes in 2 blocks are still reachable in loss record 6 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4D18250: Poco::Thread::start(Poco::Runnable&) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D18F33: Poco::PooledThread::start() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D1A2FC: Poco::ThreadPool::ThreadPool(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int, int, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D1A4DB: Poco::ThreadPool::defaultPool() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4B70CAB: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 16 bytes in 1 blocks are still reachable in loss record 7 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x10D3AC: main (main.cpp:17)
+==5919== 
+==5919== 16 bytes in 1 blocks are still reachable in loss record 8 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4D1AE25: void std::vector<Poco::PooledThread*, std::allocator<Poco::PooledThread*> >::_M_realloc_insert<Poco::PooledThread* const&>(__gnu_cxx::__normal_iterator<Poco::PooledThread**, std::vector<Poco::PooledThread*, std::allocator<Poco::PooledThread*> > >, Poco::PooledThread* const&) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D1A326: Poco::ThreadPool::ThreadPool(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int, int, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D1A4DB: Poco::ThreadPool::defaultPool() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4B70CAB: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 16 bytes in 1 blocks are still reachable in loss record 9 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4D1822C: Poco::Thread::start(Poco::Runnable&) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x10D3F5: main (main.cpp:19)
+==5919== 
+==5919== 17 bytes in 1 blocks are still reachable in loss record 10 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B06246: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF7497: _GLOBAL__sub_I_HTTPAuthenticationParams.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 17 bytes in 1 blocks are still reachable in loss record 11 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4AF7A86: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF7C40: _GLOBAL__sub_I_HTTPMessage.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 17 bytes in 1 blocks are still reachable in loss record 12 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF817F: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 17 bytes in 1 blocks are still reachable in loss record 13 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF81CF: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 17 bytes in 1 blocks are still reachable in loss record 14 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF835F: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 17 bytes in 1 blocks are still reachable in loss record 15 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF844F: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 17 bytes in 1 blocks are still reachable in loss record 16 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF86CF: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 17 bytes in 1 blocks are still reachable in loss record 17 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8837: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 17 bytes in 1 blocks are still reachable in loss record 18 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B28C46: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8ABD: _GLOBAL__sub_I_ICMPv4PacketImpl.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 17 bytes in 1 blocks are still reachable in loss record 19 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B28C46: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8C02: _GLOBAL__sub_I_ICMPv4PacketImpl.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 17 bytes in 1 blocks are still reachable in loss record 20 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B28C46: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8C22: _GLOBAL__sub_I_ICMPv4PacketImpl.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 17 bytes in 1 blocks are still reachable in loss record 21 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4AF8F96: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF9240: _GLOBAL__sub_I_MailMessage.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 18 bytes in 1 blocks are still reachable in loss record 22 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4C8BC86: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4C8BE14: _GLOBAL__sub_I_DateTimeFormat.cpp (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 18 bytes in 1 blocks are still reachable in loss record 23 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4AF7A86: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF7BF0: _GLOBAL__sub_I_HTTPMessage.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 18 bytes in 1 blocks are still reachable in loss record 24 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF81F7: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 18 bytes in 1 blocks are still reachable in loss record 25 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF86A7: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 18 bytes in 1 blocks are still reachable in loss record 26 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF871F: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 18 bytes in 1 blocks are still reachable in loss record 27 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B28C46: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8B68: _GLOBAL__sub_I_ICMPv4PacketImpl.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 19 bytes in 1 blocks are still reachable in loss record 28 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B06246: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF74BF: _GLOBAL__sub_I_HTTPAuthenticationParams.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 19 bytes in 1 blocks are still reachable in loss record 29 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF82BF: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 19 bytes in 1 blocks are still reachable in loss record 30 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF82E7: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 19 bytes in 1 blocks are still reachable in loss record 31 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF83D7: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 19 bytes in 1 blocks are still reachable in loss record 32 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF85B7: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 19 bytes in 1 blocks are still reachable in loss record 33 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8607: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 20 bytes in 1 blocks are still reachable in loss record 34 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4C8BC86: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4C8BCCD: _GLOBAL__sub_I_DateTimeFormat.cpp (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 20 bytes in 1 blocks are still reachable in loss record 35 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4C8BC86: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4C8BCFC: _GLOBAL__sub_I_DateTimeFormat.cpp (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 20 bytes in 1 blocks are still reachable in loss record 36 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4D1DDFF: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4C8CD27: _GLOBAL__sub_I_URI.cpp (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 20 bytes in 1 blocks are still reachable in loss record 37 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B02916: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF73FF: _GLOBAL__sub_I_HTMLForm.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 20 bytes in 1 blocks are still reachable in loss record 38 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B166F6: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF7F27: _GLOBAL__sub_I_HTTPRequest.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 20 bytes in 1 blocks are still reachable in loss record 39 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF7FEF: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 20 bytes in 1 blocks are still reachable in loss record 40 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF84EF: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 20 bytes in 1 blocks are still reachable in loss record 41 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF862F: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 20 bytes in 1 blocks are still reachable in loss record 42 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF880F: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 20 bytes in 1 blocks are still reachable in loss record 43 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B28C46: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8C48: _GLOBAL__sub_I_ICMPv4PacketImpl.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 20 bytes in 1 blocks are still reachable in loss record 44 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4AF8F96: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF9127: _GLOBAL__sub_I_MailMessage.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 20 bytes in 1 blocks are still reachable in loss record 45 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B712F6: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF998A: _GLOBAL__sub_I_TCPServerDispatcher.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 21 bytes in 1 blocks are still reachable in loss record 46 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4C8BC86: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4C8BDEC: _GLOBAL__sub_I_DateTimeFormat.cpp (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 21 bytes in 1 blocks are still reachable in loss record 47 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8657: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 21 bytes in 1 blocks are still reachable in loss record 48 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF88AF: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 21 bytes in 1 blocks are still reachable in loss record 49 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B28C46: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8C12: _GLOBAL__sub_I_ICMPv4PacketImpl.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 22 bytes in 1 blocks are still reachable in loss record 50 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF853F: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 22 bytes in 1 blocks are still reachable in loss record 51 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF86F7: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 22 bytes in 1 blocks are still reachable in loss record 52 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8797: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 23 bytes in 1 blocks are still reachable in loss record 53 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8567: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 23 bytes in 1 blocks are still reachable in loss record 54 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B573AC: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF944F: _GLOBAL__sub_I_RemoteSyslogChannel.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 24 bytes in 1 blocks are still reachable in loss record 55 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8887: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 25 bytes in 1 blocks are still reachable in loss record 56 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4C8BC86: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4C8BD24: _GLOBAL__sub_I_DateTimeFormat.cpp (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 25 bytes in 1 blocks are still reachable in loss record 57 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4C8BC86: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4C8BD4C: _GLOBAL__sub_I_DateTimeFormat.cpp (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 25 bytes in 1 blocks are still reachable in loss record 58 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4C8BC86: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4C8BD74: _GLOBAL__sub_I_DateTimeFormat.cpp (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 25 bytes in 1 blocks are still reachable in loss record 59 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4C8BC86: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4C8BD9C: _GLOBAL__sub_I_DateTimeFormat.cpp (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 25 bytes in 1 blocks are still reachable in loss record 60 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4C8BC86: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4C8BDC4: _GLOBAL__sub_I_DateTimeFormat.cpp (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 25 bytes in 1 blocks are still reachable in loss record 61 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8517: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 26 bytes in 1 blocks are still reachable in loss record 62 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4AF8F96: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF90FF: _GLOBAL__sub_I_MailMessage.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 26 bytes in 1 blocks are still reachable in loss record 63 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4D17E1D: Poco::Thread::Thread(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4B70C8B: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 27 bytes in 1 blocks are still reachable in loss record 64 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF885F: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 28 bytes in 1 blocks are still reachable in loss record 65 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4D00D56: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4C8C80A: _GLOBAL__sub_I_RotateStrategy.cpp (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 28 bytes in 1 blocks are still reachable in loss record 66 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B28C46: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8D3F: _GLOBAL__sub_I_ICMPv4PacketImpl.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 30 bytes in 1 blocks are still reachable in loss record 67 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF80B7: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 30 bytes in 1 blocks are still reachable in loss record 68 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8427: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 30 bytes in 1 blocks are still reachable in loss record 69 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF876F: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 32 bytes in 1 blocks are still reachable in loss record 70 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF858F: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 32 bytes in 1 blocks are still reachable in loss record 71 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8747: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 32 bytes in 1 blocks are still reachable in loss record 72 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B19376: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8927: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 32 bytes in 1 blocks are still reachable in loss record 73 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B28C46: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8C35: _GLOBAL__sub_I_ICMPv4PacketImpl.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 32 bytes in 1 blocks are still reachable in loss record 74 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B28C46: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8C96: _GLOBAL__sub_I_ICMPv4PacketImpl.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 32 bytes in 1 blocks are still reachable in loss record 75 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B65BFC: Poco::Net::SocketAddress::init(Poco::Net::IPAddress const&, unsigned short) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4B6613D: Poco::Net::SocketAddress::init(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, unsigned short) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4B665D9: Poco::Net::SocketAddress::init(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4B66728: Poco::Net::SocketAddress::SocketAddress(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10D37D: main (main.cpp:16)
+==5919== 
+==5919== 32 bytes in 2 blocks are still reachable in loss record 76 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4D1822C: Poco::Thread::start(Poco::Runnable&) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D18F33: Poco::PooledThread::start() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D1A2FC: Poco::ThreadPool::ThreadPool(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int, int, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D1A4DB: Poco::ThreadPool::defaultPool() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4B70CAB: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 33 bytes in 1 blocks are still reachable in loss record 77 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B28C46: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8CF4: _GLOBAL__sub_I_ICMPv4PacketImpl.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 34 bytes in 1 blocks are still reachable in loss record 78 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B02916: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF73D0: _GLOBAL__sub_I_HTMLForm.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 34 bytes in 1 blocks are still reachable in loss record 79 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B28C46: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8D04: _GLOBAL__sub_I_ICMPv4PacketImpl.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 35 bytes in 1 blocks are still reachable in loss record 80 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B28C46: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8C86: _GLOBAL__sub_I_ICMPv4PacketImpl.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 37 bytes in 1 blocks are still reachable in loss record 81 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B72486: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF99D0: _GLOBAL__sub_I_WebSocket.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 40 bytes in 1 blocks are still reachable in loss record 82 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B64022: Poco::Net::Socket::Socket() (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF9943: _GLOBAL__sub_I_SocketNotifier.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 40 bytes in 1 blocks are still reachable in loss record 83 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B63D41: Poco::Net::ServerSocket::ServerSocket(Poco::Net::SocketAddress const&, int) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10D3C6: main (main.cpp:17)
+==5919== 
+==5919== 40 bytes in 1 blocks are still reachable in loss record 84 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B714E9: Poco::Net::TCPServerDispatcher::TCPServerDispatcher(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::ThreadPool&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4B70D1D: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 52 bytes in 1 blocks are still reachable in loss record 85 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B28C46: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8CB6: _GLOBAL__sub_I_ICMPv4PacketImpl.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 55 bytes in 1 blocks are still reachable in loss record 86 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B28C46: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(char const*, std::allocator<char> const&) [clone .isra.0] (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4AF8CA6: _GLOBAL__sub_I_ICMPv4PacketImpl.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 64 bytes in 1 blocks are still reachable in loss record 87 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CDE4CD: Poco::NotificationQueue::NotificationQueue() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4B71459: Poco::Net::TCPServerDispatcher::TCPServerDispatcher(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::ThreadPool&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4B70D1D: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 64 bytes in 1 blocks are still reachable in loss record 88 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CDE551: Poco::NotificationQueue::NotificationQueue() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4B71459: Poco::Net::TCPServerDispatcher::TCPServerDispatcher(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::ThreadPool&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4B70D1D: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 120 bytes in 1 blocks are still reachable in loss record 89 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4D1A4B8: Poco::ThreadPool::defaultPool() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4B70CAB: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 168 bytes in 1 blocks are still reachable in loss record 90 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4D17CA6: Poco::ThreadImpl::ThreadImpl() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D17D68: Poco::Thread::Thread(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4B70C8B: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 288 bytes in 1 blocks are possibly lost in loss record 91 of 114
+==5919==    at 0x483CD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4013E0A: allocate_dtv (dl-tls.c:286)
+==5919==    by 0x4013E0A: _dl_allocate_tls (dl-tls.c:532)
+==5919==    by 0x515B382: allocate_stack (allocatestack.c:622)
+==5919==    by 0x515B382: pthread_create@@GLIBC_2.2.5 (pthread_create.c:662)
+==5919==    by 0x4D18001: Poco::ThreadImpl::startImpl(Poco::SharedPtr<Poco::Runnable, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Runnable> >) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D18280: Poco::Thread::start(Poco::Runnable&) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x10D3F5: main (main.cpp:19)
+==5919== 
+==5919== 312 bytes in 1 blocks are still reachable in loss record 92 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4B70D02: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 336 bytes in 2 blocks are still reachable in loss record 93 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4D17CA6: Poco::ThreadImpl::ThreadImpl() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D17D68: Poco::Thread::Thread(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D18DDE: Poco::PooledThread::PooledThread(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D19F59: Poco::ThreadPool::createThread() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D1A30C: Poco::ThreadPool::ThreadPool(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int, int, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D1A4DB: Poco::ThreadPool::defaultPool() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4B70CAB: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 512 bytes in 1 blocks are still reachable in loss record 94 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CDE4ED: Poco::NotificationQueue::NotificationQueue() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4B71459: Poco::Net::TCPServerDispatcher::TCPServerDispatcher(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::ThreadPool&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4B70D1D: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 512 bytes in 1 blocks are still reachable in loss record 95 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CDE572: Poco::NotificationQueue::NotificationQueue() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4B71459: Poco::Net::TCPServerDispatcher::TCPServerDispatcher(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::ThreadPool&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4B70D1D: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 576 bytes in 2 blocks are possibly lost in loss record 96 of 114
+==5919==    at 0x483CD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4013E0A: allocate_dtv (dl-tls.c:286)
+==5919==    by 0x4013E0A: _dl_allocate_tls (dl-tls.c:532)
+==5919==    by 0x515B382: allocate_stack (allocatestack.c:622)
+==5919==    by 0x515B382: pthread_create@@GLIBC_2.2.5 (pthread_create.c:662)
+==5919==    by 0x4D18001: Poco::ThreadImpl::startImpl(Poco::SharedPtr<Poco::Runnable, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Runnable> >) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D18280: Poco::Thread::start(Poco::Runnable&) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D18F33: Poco::PooledThread::start() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D1A2FC: Poco::ThreadPool::ThreadPool(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int, int, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D1A4DB: Poco::ThreadPool::defaultPool() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4B70CAB: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 1,024 bytes in 1 blocks are still reachable in loss record 97 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CD6BB2: Poco::MemoryPool::MemoryPool(unsigned long, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4AF753F: _GLOBAL__sub_I_HTTPBufferAllocator.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,024 bytes in 1 blocks are still reachable in loss record 98 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CD6BB2: Poco::MemoryPool::MemoryPool(unsigned long, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4AF7582: _GLOBAL__sub_I_HTTPChunkedStream.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,024 bytes in 1 blocks are still reachable in loss record 99 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CD6BB2: Poco::MemoryPool::MemoryPool(unsigned long, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4AF75B3: _GLOBAL__sub_I_HTTPChunkedStream.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,024 bytes in 1 blocks are still reachable in loss record 100 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CD6BB2: Poco::MemoryPool::MemoryPool(unsigned long, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4AF7942: _GLOBAL__sub_I_HTTPFixedLengthStream.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,024 bytes in 1 blocks are still reachable in loss record 101 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CD6BB2: Poco::MemoryPool::MemoryPool(unsigned long, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4AF7973: _GLOBAL__sub_I_HTTPFixedLengthStream.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,024 bytes in 1 blocks are still reachable in loss record 102 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CD6BB2: Poco::MemoryPool::MemoryPool(unsigned long, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4AF79B2: _GLOBAL__sub_I_HTTPHeaderStream.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,024 bytes in 1 blocks are still reachable in loss record 103 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CD6BB2: Poco::MemoryPool::MemoryPool(unsigned long, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4AF79E3: _GLOBAL__sub_I_HTTPHeaderStream.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,024 bytes in 1 blocks are still reachable in loss record 104 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CD6BB2: Poco::MemoryPool::MemoryPool(unsigned long, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4AF8A22: _GLOBAL__sub_I_HTTPStream.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,024 bytes in 1 blocks are still reachable in loss record 105 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CD6BB2: Poco::MemoryPool::MemoryPool(unsigned long, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4AF8A53: _GLOBAL__sub_I_HTTPStream.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,040 bytes in 1 blocks are still reachable in loss record 106 of 114
+==5919==    at 0x483CD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4E3EF41: __new_exitfn (cxa_atexit.c:114)
+==5919==    by 0x4E3F126: __internal_atexit (cxa_atexit.c:44)
+==5919==    by 0x4E3F126: __cxa_atexit (cxa_atexit.c:70)
+==5919==    by 0x4C8C201: _GLOBAL__sub_I_FileChannel.cpp (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,040 bytes in 1 blocks are still reachable in loss record 107 of 114
+==5919==    at 0x483CD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4E3EF41: __new_exitfn (cxa_atexit.c:114)
+==5919==    by 0x4E3F126: __internal_atexit (cxa_atexit.c:44)
+==5919==    by 0x4E3F126: __cxa_atexit (cxa_atexit.c:70)
+==5919==    by 0x4AF759B: _GLOBAL__sub_I_HTTPChunkedStream.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,040 bytes in 1 blocks are still reachable in loss record 108 of 114
+==5919==    at 0x483CD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4E3EF41: __new_exitfn (cxa_atexit.c:114)
+==5919==    by 0x4E3F126: __internal_atexit (cxa_atexit.c:44)
+==5919==    by 0x4E3F126: __cxa_atexit (cxa_atexit.c:70)
+==5919==    by 0x4AF7C52: _GLOBAL__sub_I_HTTPMessage.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,040 bytes in 1 blocks are still reachable in loss record 109 of 114
+==5919==    at 0x483CD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4E3EF41: __new_exitfn (cxa_atexit.c:114)
+==5919==    by 0x4E3F126: __internal_atexit (cxa_atexit.c:44)
+==5919==    by 0x4E3F126: __cxa_atexit (cxa_atexit.c:70)
+==5919==    by 0x4AF81B9: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,040 bytes in 1 blocks are still reachable in loss record 110 of 114
+==5919==    at 0x483CD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4E3EF41: __new_exitfn (cxa_atexit.c:114)
+==5919==    by 0x4E3F126: __internal_atexit (cxa_atexit.c:44)
+==5919==    by 0x4E3F126: __cxa_atexit (cxa_atexit.c:70)
+==5919==    by 0x4AF86B9: _GLOBAL__sub_I_HTTPResponse.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,040 bytes in 1 blocks are still reachable in loss record 111 of 114
+==5919==    at 0x483CD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4E3EF41: __new_exitfn (cxa_atexit.c:114)
+==5919==    by 0x4E3F126: __internal_atexit (cxa_atexit.c:44)
+==5919==    by 0x4E3F126: __cxa_atexit (cxa_atexit.c:70)
+==5919==    by 0x4AF9099: _GLOBAL__sub_I_MailMessage.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 1,216 bytes in 2 blocks are still reachable in loss record 112 of 114
+==5919==    at 0x483AE63: operator new(unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4D19F48: Poco::ThreadPool::createThread() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D1A30C: Poco::ThreadPool::ThreadPool(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int, int, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4D1A4DB: Poco::ThreadPool::defaultPool() (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4B70CAB: Poco::Net::TCPServer::TCPServer(Poco::SharedPtr<Poco::Net::TCPServerConnectionFactory, Poco::ReferenceCounter, Poco::ReleasePolicy<Poco::Net::TCPServerConnectionFactory> >, Poco::Net::ServerSocket const&, Poco::AutoPtr<Poco::Net::TCPServerParams>) (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x10B9B2: server::server(Poco::Net::ServerSocket*) (server.cpp:15)
+==5919==    by 0x10D3E6: main (main.cpp:18)
+==5919== 
+==5919== 2,080 bytes in 2 blocks are still reachable in loss record 113 of 114
+==5919==    at 0x483CD99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4E3EF41: __new_exitfn (cxa_atexit.c:114)
+==5919==    by 0x4E3F126: __internal_atexit (cxa_atexit.c:44)
+==5919==    by 0x4E3F126: __cxa_atexit (cxa_atexit.c:70)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== 65,536 bytes in 16 blocks are still reachable in loss record 114 of 114
+==5919==    at 0x483B583: operator new[](unsigned long) (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==5919==    by 0x4CD6AFA: Poco::MemoryPool::MemoryPool(unsigned long, int, int) (in /usr/local/lib/libPocoFoundation.so.71)
+==5919==    by 0x4AF753F: _GLOBAL__sub_I_HTTPBufferAllocator.cpp (in /usr/local/lib/libPocoNet.so.71)
+==5919==    by 0x4011029: call_init.part.0 (dl-init.c:72)
+==5919==    by 0x4011130: call_init (dl-init.c:30)
+==5919==    by 0x4011130: _dl_init (dl-init.c:119)
+==5919==    by 0x4001139: ??? (in /usr/lib/x86_64-linux-gnu/ld-2.30.so)
+==5919== 
+==5919== LEAK SUMMARY:
+==5919==    definitely lost: 0 bytes in 0 blocks
+==5919==    indirectly lost: 0 bytes in 0 blocks
+==5919==      possibly lost: 864 bytes in 3 blocks
+==5919==    still reachable: 88,349 bytes in 132 blocks
+==5919==         suppressed: 0 bytes in 0 blocks
+==5919== 
+==5919== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
