@@ -23,9 +23,6 @@
 // includes from c library
 #include <cassert>
 
-using namespace Poco::JSON;
-using namespace Poco::Dynamic;
-
 File_reader::File_reader(const std::string& name) : m_name(name)
 {
 	m_fread.open(m_name, std::ios::in);
@@ -61,9 +58,11 @@ File_writer::~File_writer() noexcept
 	m_fwrite.close();
 }
 
-std::string get_value(Object::Ptr json_object, const char* key_from_json) {
+std::string get_value(Poco::JSON::Object::Ptr json_object,
+					  const char* key_from_json) {
 	//insted of writing Poco::Dynamic::Var used Var
 	//
+	using namespace Poco::Dynamic;
 	Var variable;
 	std::string key(key_from_json);
 	// Get the member Variable
@@ -88,7 +87,8 @@ bool file_writer(File_writer& w, std::string& file, std::string& json_format) {
 	return true;
 }
 
-void print_after_pars(std::string& json_file, Object::Ptr& json_object_value) {
+void print_after_pars(std::string& json_file,
+					  Poco::JSON::Object::Ptr& json_object_value) {
 	std::cout << json_file << std::endl;
 	std::cout << std::endl;
 	std::cout << "user_id : " << get_value(json_object_value, "user_id")
@@ -108,12 +108,14 @@ void checking_parser_work() {
 	std::string file;
 	// insted of writing Poco::JSON::Parser used Parser
 	//
+	using namespace Poco::JSON;
 	Parser parse_from;
 	File_writer w("./json_files/w_file.json");
 	file_writer(w, file, json_file);
 	// Parse the JSON and get the Results
 	//insted of writing Poco::Dynamic::Var used Var
 	//
+	using namespace Poco::Dynamic;
 	Var parsed_json = parse_from.parse(json_file);
 	Var parsed_json_result = parse_from.result();
 	// Get the JSON Object

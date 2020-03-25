@@ -9,28 +9,15 @@
  */
 
 // includes from this project
-#include "../parser/json_parser.hpp"
-#include "../gui/main_window.hpp"
-#include "../gui/chat_box.hpp"
-#include "../gui/login.hpp"
-#include "../gui/signup.hpp"
-#include "../client/client.hpp"
-#include "../commands/commands.hpp"
+#include "parser/json_parser.hpp"
+#include "gui/main_window.hpp"
+#include "client/client.hpp"
 
 // includes from QT libraries
-#include <QWidget>
-#include <QMainWindow>
 #include <QApplication>
 
 // includes from PoCo libraries
-#include "Poco/Net/NetException.h"
-
-// includes from C++ libraries
-#include <iostream>
-#include <fstream>
-
-using namespace Poco::JSON;
-using namespace Poco::Dynamic;
+#include <Poco/Net/NetException.h>
 
 int main(int argc, char* argv[])
 {

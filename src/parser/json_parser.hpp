@@ -16,15 +16,8 @@
 #include <Poco/Dynamic/Var.h>
 
 // includes from C++ library
-#include <iostream>
 #include <fstream>
 #include <string>
-
-// includes from c library
-#include <cassert>
-
-using namespace Poco::JSON;
-using namespace Poco::Dynamic;
 
 /// This struct is reading from given ".txt" file
 struct File_reader {
@@ -63,15 +56,18 @@ struct File_writer {
 		/// @name and has option "noexcept"
 		~File_writer();
 };
+
 /// @name This function takes the key and returns it's value
-std::string get_value(Object::Ptr json_object, const char* key_from_json);
+std::string get_value(Poco::JSON::Object::Ptr json_object,
+					  const char* key_from_json);
 /// @name This function is reading from file
 bool file_reader(File_reader& f, std::string& file);
 /// @name This function is writing to file
 bool file_writer(File_writer& w, std::string& file, std::string& json_format);
 /// @name This function is printing the value of given key (unnessery, would be
 //deleted)
-void print_after_pars(std::string& json_file, Object::Ptr& json_object_value);
+void print_after_pars(std::string& json_file,
+					  Poco::JSON::Object::Ptr& json_object_value);
 /// @name This function is printing the parser result (unnessery, would be
 //deleted)
 void checking_parser_work();
