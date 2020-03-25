@@ -371,5 +371,14 @@ command* cmd_msg_out_request::process() noexcept
 	return response;
 }
 
+
+cmd_login_request::cmd_login_request(MSNGR_USERID_T user_id) noexcept{}
+cmd_login_request::cmd_login_request(const Poco::JSON::Object::Ptr cmd_val)
+	noexcept{}
+
+void cmd_login_request::dress() noexcept {}
+void cmd_login_request::strip() noexcept {}
+command* cmd_login_request::process() noexcept {}
+
 } // namespace commands
 } //namespace messenger
