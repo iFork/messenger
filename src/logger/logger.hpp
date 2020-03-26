@@ -10,46 +10,72 @@
 #include "colors.hpp"
 #include <map>
 #include <string>
+#include <iostream>
 
-/**
- * @class class logger
-*/
-class logger 
-{
-public: 
+namespace messenger { namespace logger {
+    /**
+     * @brief log level: info(0), warning(1), error(2)
+     */
     enum class log_level {
-        error, 
+        info,
         warning, 
-        info
+        error 
     };
-private:
-    log_level m_log_level = log_level::info;
-    std::map<log_level, std::string> labels {
-        { log_level::error, " [ERROR] " },
-        { log_level::warning, " [WARNING] " },
-        { log_level::info, " [INFO] " }
+    /**
+     * @brief struct to configure logger settings
+     */
+    struct log_config_struct {
+        bool headers = false;
+        bool colored = false;
+        log_level level = log_level::info;
     };
-public:
     /**
-     * @brief change m_log_level
+     * @brief configuration object, will be defined in cpp file
      */
-    void set_level(log_level level);
-    /**
-     * @brief warning log
-     */
-    void warn(const std::string& message);
-    /**
-     * @brief error log
-     */
-    void error(const std::string& message);
-    /**
-     * @brief info log
-     */
-    void info(const std::string& message);
-    /**
-     * @brief Destructor
-     */
-    ~logger() noexcept;
-};
+    extern log_config_struct log_config;
+    
+    class log {
+    public:
+        /**
+         * @brief overload insertion operator 
+         */
+        template<class T>
+        log& operator<<(const T &msg) {
+            if(m_message_level >= log_config.level) {
+                std::cout << msg;
+                m_opened = true;
+            }
+            return *this;
+        }
+        /**
+         * @brief constructor 
+         */
+        log(log_level type = log_level::info);
+        /**
+         * @brief copy constructor 
+         */
+        log(const log& other) = delete;
+        /**
+         * @brief move constructor 
+         */
+        log(const log&& other) = delete;
+         /**
+         * @brief assignment operator
+         */
+        log& operator=(const log& other) = delete;
+        /**
+         * @brief move assignment operator
+         */
+        log& operator=(const log&& other) = delete;
+        ~log();
+    private:
+        bool m_opened = false;
+        log_level m_message_level = log_level::info;
+        /**
+         * @brief get label depending of log level
+         */
+        std::string get_label(log_level type);
+    };
+} }
 
-#endif // LOGGER_HPP
+#endif

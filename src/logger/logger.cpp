@@ -1,49 +1,34 @@
-/**
- * @file logger.cpp
- * @author annie
- * @brief logger class implementation
-*/
+// /**
+//  * @file logger.cpp
+//  * @author annie
+//  * @brief log class implementation
+// */
 
 #include "logger.hpp"
-#include "colors.hpp"
-#include <iostream>
-#include <cassert>
 
-void logger::set_level(log_level level) 
-{
-    m_log_level = level;
-}
-
-void logger::error(const std::string& message) 
-{
-    assert(!message.empty());
-    if (m_log_level >= log_level::error) {
-        std::cerr << labels[log_level::error] 
-                  << SET_RED(message) 
-                  << std::endl;
+namespace messenger { namespace logger {
+    log_config_struct log_config = {};
+    std::string log::get_label(log_level type) 
+    {
+        std::map<log_level, std::string> labels {
+            { log_level::error, "ERROR" },
+            { log_level::warning, "WARNING" },
+            { log_level::info, "INFO" }
+        };
+        return labels[type];
     }
-}
-
-void logger::warn(const std::string& message) 
-{
-    assert(!message.empty());
-    if (m_log_level >= log_level::warning) {
-        std::cout << labels[log_level::warning] 
-                  << SET_YELLOW(message) 
-                  << std::endl;
+    log::log(log_level type) 
+    {
+        m_message_level = type;
+        if(log_config.headers) {
+            operator << ("["+get_label(type)+"]");
+        }
     }
-}
-
-void logger::info(const std::string& message) 
-{
-    assert(!message.empty());
-    if (m_log_level >= log_level::info) {
-        std::cout << labels[log_level::info] 
-                  << SET_BLUE(message) 
-                  << std::endl;
+    log::~log() 
+    {
+        if(m_opened) {
+            std::cout << std::endl;
+        }
+        m_opened = false;
     }
-}
-
-logger::~logger() noexcept
-{
-}
+} }
