@@ -46,6 +46,7 @@ projects := src/shared \
 			src/parser \
 			src/messenger_exe \
 			src/logger\
+			src/db \
 
 # Prerequisite tools
 preconditions := gcc doxygen ar ln pkg-config lcov
@@ -103,6 +104,6 @@ include $(mkf_path)/doc.mk
 # Dependencies between projects
 #
 
-src/server: src/commands src/logger
+src/server: src/commands src/logger src/db
 src/client: src/shared
 src/messenger_exe: src/gui src/client src/commands src/parser
