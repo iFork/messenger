@@ -1,0 +1,14 @@
+{
+    "chat_id" : "Ani_Anna",
+    "messages" : [
+        {
+            "author_id" : "0001",
+            "msg_id" : "02",
+            "text" : "Hello.Good!",
+            "time" : "12:50"
+        }
+    ],
+    "participants" : [
+        "Anna"
+    ]
+}
