@@ -54,10 +54,12 @@ uic_flags :=
 #
 cflags += -fPIC \
 		  -I$(HOME)/poco/Net/include \
+		  -I$(HOME)/poco/JSON/include \
 		  -I$(HOME)/poco/Foundation/include \
 		  -std=c++17 \
 
 compiler_flags += -I$(HOME)/poco/Net/include \
+				  -I$(HOME)/poco/JSON/include \
 				  -I$(HOME)/poco/Foundation/include \
 
 compiler_flags := $(filter-out -Werror -Wconversion, $(compiler_flags))
@@ -70,7 +72,7 @@ compiler_flags := $(filter-out -Werror -Wconversion, $(compiler_flags))
 # Note: It is not recommended to overwrite the value (don't use := operator).
 #
 linker_flags += -lstdc++ -ldl \
-				-lPocoNet -lPocoFoundation \
+				-lPocoNet -lPocoFoundation -lPocoJSON \
 				-L$(HOME)/poco/lib/Linux/$(architecture) \
 
 # The libraries which should be linked to the current project. The link type is
