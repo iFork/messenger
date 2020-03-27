@@ -5,10 +5,13 @@
 // */
 
 #include "logger.hpp"
+#include <string.h>
 
 namespace messenger { namespace logger {
+
     log_config_struct log_config = {};
-    std::string log::get_label(log_level type) 
+
+    std::string logger::get_label(log_level type) noexcept
     {
         std::map<log_level, std::string> labels {
             { log_level::error, "ERROR" },
@@ -17,18 +20,10 @@ namespace messenger { namespace logger {
         };
         return labels[type];
     }
-    log::log(log_level type) 
+
+    std::string logger::get_current_time() noexcept
     {
-        m_message_level = type;
-        if(log_config.headers) {
-            operator << ("["+get_label(type)+"]");
-        }
-    }
-    log::~log() 
-    {
-        if(m_opened) {
-            std::cout << std::endl;
-        }
-        m_opened = false;
+          time_t my_time = time(NULL);
+          return strtok(ctime(&my_time), "\n");   
     }
 } }

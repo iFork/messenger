@@ -18,11 +18,14 @@
 
 # The source files under the project.
 cpp_files := logger.cpp \
-
+			 console_log.cpp \
+			 file_log.cpp \
 # The header files under the project, which are supposed to be used by other
 # projects.
 public_headers := logger.hpp \
 				  colors.hpp \
+				  console_log.hpp \
+				  file_log.hpp \
 
 # Building QT project.
 # TODO: Add detailed comments.

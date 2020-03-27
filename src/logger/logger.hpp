@@ -10,7 +10,6 @@
 #include "colors.hpp"
 #include <map>
 #include <string>
-#include <iostream>
 
 namespace messenger { namespace logger {
     /**
@@ -25,56 +24,50 @@ namespace messenger { namespace logger {
      * @brief struct to configure logger settings
      */
     struct log_config_struct {
-        bool headers = false;
-        bool colored = false;
+        bool headers = true;
+        bool colored = true;
         log_level level = log_level::info;
+        std::string default_log_file = "log.txt";
     };
     /**
      * @brief configuration object, will be defined in cpp file
      */
     extern log_config_struct log_config;
     
-    class log {
+    class logger {
     public:
-        /**
-         * @brief overload insertion operator 
-         */
-        template<class T>
-        log& operator<<(const T &msg) {
-            if(m_message_level >= log_config.level) {
-                std::cout << msg;
-                m_opened = true;
-            }
-            return *this;
-        }
-        /**
-         * @brief constructor 
-         */
-        log(log_level type = log_level::info);
         /**
          * @brief copy constructor 
          */
-        log(const log& other) = delete;
+        logger(const logger& other) = delete;
         /**
          * @brief move constructor 
          */
-        log(const log&& other) = delete;
+        logger(const logger&& other) = delete;
          /**
          * @brief assignment operator
          */
-        log& operator=(const log& other) = delete;
+        logger& operator=(const logger& other) = delete;
         /**
          * @brief move assignment operator
          */
-        log& operator=(const log&& other) = delete;
-        ~log();
-    private:
-        bool m_opened = false;
+        logger& operator=(const logger&& other) = delete;
+        
+    protected:
         log_level m_message_level = log_level::info;
         /**
          * @brief get label depending of log level
          */
-        std::string get_label(log_level type);
+        std::string get_label(log_level type) noexcept;
+        std::string get_current_time() noexcept;
+        /**
+         * @brief constructor 
+         */
+        logger() = default;
+        /**
+         * @brief destructor
+         */
+        ~logger() = default;
     };
 } }
 

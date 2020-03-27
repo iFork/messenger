@@ -7,22 +7,39 @@
 #ifndef COLORS_HPP
 #define COLORS_HPP
 
-/**
- * codes that change the color of terminal output 
-*/
+#include <iostream>
 
-#define RESET_TEXT "\x1B[0m"
-#define RED  "\x1B[31m"
-#define YELLOW "\x1B[33m"
-#define BLUE  "\x1B[34m"
+namespace messenger { namespace logger {
 
-/**
- * change the color and then reset it back
-*/
+    /**
+     * codes that change the color of terminal output 
+    */
 
-#define SET_RED(str) RED + str + RESET_TEXT
-#define SET_YELLOW(str) YELLOW + str + RESET_TEXT
-#define SET_BLUE(str) BLUE + str + RESET_TEXT
+    #define RESET_TEXT "\x1B[0m"
+    #define RED  "\x1B[31m"
+    #define YELLOW "\x1B[33m"
+    #define BLUE  "\x1B[34m"
 
+    /**
+     * change the colors and then reset it back
+    */
+    template<typename T>
+    void set_red(const T& message) 
+    {
+        std::cout << RED << message << RESET_TEXT;
+    }
+
+    template<typename T>
+    void set_yellow(const T& message) 
+    {
+        std::cout << YELLOW << message << RESET_TEXT;
+    }
+
+    template<typename T>
+    void set_blue(const T& message) 
+    {
+        std::cout << BLUE << message << RESET_TEXT;
+    }
+}}
 
 #endif // COLORS_HPP
