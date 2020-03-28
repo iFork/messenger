@@ -6,10 +6,9 @@ class db_user_observable {
 protected:
     //Dummy data members
     std::string m_user_id;
-public:
-
-    //Specific notifiers as *public* inner classes
-
+private:
+    //Specific notifiers as *private* inner classes
+    
     //Notifier: signup_success_notifier
     //forward declaring inner class for befriending
     class signup_success_notifier;
@@ -50,9 +49,16 @@ public:
             //checks to dispatch subject::notify_observers()
     };
 
-    //Public notifier members
+    //Private notifier members
     signup_success_notifier m_signup_success_notifier;
     signup_failure_notifier m_signup_failure_notifier;
+
+public:
+    //Notifier accessors - to then get access to public methods of
+    //private nested classes
+    signup_success_notifier& get_signup_success_notifier();
+    signup_failure_notifier& get_signup_failure_notifier();
+        //no const
 
     //Special member functions
     //C-tor

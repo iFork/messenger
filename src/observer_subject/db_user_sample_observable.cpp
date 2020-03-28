@@ -34,6 +34,12 @@ signup_success_notifier(db_user_observable* parent):
     m_parent(parent)
 {
 }
+//Notifier accessors
+db_user_observable::signup_success_notifier& db_user_observable::
+get_signup_success_notifier() 
+{
+    return m_signup_success_notifier;
+}
 
 //Implementation of db_user_observable::signup_failure_notifier
 //C-tor
@@ -41,4 +47,10 @@ db_user_observable::signup_failure_notifier::
 signup_failure_notifier(db_user_observable* parent):
     m_parent(parent)
 {
+}
+//Notifier accessors
+db_user_observable::signup_failure_notifier& db_user_observable::
+get_signup_failure_notifier()
+{
+    return m_signup_failure_notifier;
 }
