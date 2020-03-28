@@ -29,9 +29,9 @@ public:
     {
         //Registering observers with subjects
 		//registering will allow as to call update() on all such observer upon notice
-        m_db_user.get_signup_success_notifier().add_observer(
+        m_db_user.m_signup_success_notifier.add_observer(
                 m_signup_page.get_signup_success_observer());
-        m_db_user.get_signup_failure_notifier().add_observer(
+        m_db_user.m_signup_failure_notifier.add_observer(
                 m_signup_page.get_signup_failure_observer());
         //m_db_user->contacts_update_notifier.add_observer(m_contacts_area);
     }

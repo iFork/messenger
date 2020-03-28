@@ -1,0 +1,2 @@
+ g++ subject.cpp db_user_sample_observable.cpp gui_sample_observer.cpp test.cpp -o test
+
