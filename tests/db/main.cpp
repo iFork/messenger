@@ -9,14 +9,6 @@
 #include <sstream>
 #include <cassert>
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wshadow"
-#pragma GCC diagnostic ignored "-Wfloat-equal"
-#pragma GCC diagnostic ignored "-Wunused-variable"
-#pragma GCC diagnostic ignored "-Wreturn-type"
-#pragma GCC diagnostic ignored "-Wsign-compare"
-#pragma GCC diagnostic ignored "-Wunused-but-set-parameter"
-
 #include <Poco/JSON/Object.h>
 #include <Poco/Dynamic/Var.h>
 #include <Poco/JSON/Parser.h>
@@ -63,6 +55,66 @@ std::string stringify(Poco::JSON::Object::Ptr user_json)
 	user_json->stringify(str, 4);
 	std::string user_data = str.str();
 	return user_data;
+}
+
+void test_create_user()
+{
+	Poco::JSON::Object::Ptr user_json1 = create_user_json("Ani", "Ani");
+	std::string user1 = stringify(user_json1);
+	Poco::JSON::Object::Ptr user_json2 = create_user_json("Lilit", "Lilit");
+	std::string user2 = stringify(user_json2);
+	Poco::JSON::Object::Ptr user_json3 = create_user_json("Anna", "Anna");
+	std::string user3 = stringify(user_json3);
+
+	messenger::database::user_database_handler db;
+	assert(db.create_user("Ani", user1) == 0);
+	assert(db.create_user("Lilit", user2) == 0);
+	assert(db.create_user("Anna", user3) == 0);
+	assert(db.create_user("Ann", user3) == 0);
+	assert(db.create_user("Ani", user1) == -1);
+}
+
+void test_search_user()
+{	
+	messenger::database::user_database_handler db;
+	assert(db.search_user("Lilit") == 1);
+	assert(db.search_user("Anna") == 1);
+	assert(db.search_user("An") == 0);
+}
+
+void test_delete_user()
+{	
+	messenger::database::user_database_handler db;
+	assert(db.delete_user("Ann") == 0);
+	assert(db.delete_user("An") != 0);
+	assert(db.delete_user("Ann") != 0);
+}
+
+void test_create_chat()
+{	
+	Poco::JSON::Object::Ptr chat_json = create_chat_json("Ani_Anna");
+	std::string chat = stringify(chat_json);
+
+	messenger::database::chat_database_handler db;
+	assert(db.create_chat("Ani_Anna", chat) == 0);
+	assert(db.create_chat("An_Ani", chat) == 0);
+	assert(db.create_chat("Anna_Ani", chat) == -1);
+}
+
+void test_search_chat()
+{	
+	messenger::database::chat_database_handler db;
+	assert(db.search_chat("Ani_Anna") == 1);
+	assert(db.search_chat("Anna_Ani") == 1);
+	assert(db.search_chat("An_Lil") == 0);
+}
+
+void test_delete_chat()
+{	
+	messenger::database::chat_database_handler db;
+	assert(db.delete_chat("An_Ani") == 0);
+	assert(db.delete_chat("An_Lil") != 0);
+	assert(db.delete_chat("Anna_An") != 0);
 }
 
 void test_add_contact(const std::string& user_id)
@@ -115,8 +167,8 @@ void test_remove_chat(const std::string& user_id)
 	messenger::database::user_database_handler db;
 	messenger::database::database_user db_user_obj(db.read_user_data(user_id));
 	assert(db_user_obj.remove_chat("An_Lilit") == 0);
+	assert(db_user_obj.remove_chat("An_Vika") == 0);
 	assert(db_user_obj.remove_chat("Lilit_An") == -1);
-	assert(db_user_obj.remove_chat("Ani_Lilit") == -1);
 }
 
 void test_add_participant(const std::string& chat_id)
@@ -195,23 +247,17 @@ void test_remove_message(const std::string& chat_id)
 
 int main()
 {
-	Poco::JSON::Object::Ptr user_json = create_user_json("Anna", "Anna");
+	Poco::JSON::Object::Ptr user_json = create_user_json("Lilit", "Lilit");
 	std::string user_id = user_json->getValue<std::string>("user_id");
 	std::string user = stringify(user_json);
+	
+	test_create_user();
+	test_search_user();
+	test_delete_user();
 
-	//test create user 
-	messenger::database::user_database_handler db_user;
-	db_user.create_user(user_id, user);
-
-	user_json = create_user_json("Ani", "Ani");
-	user_id = user_json->getValue<std::string>("user_id");
-	user = stringify(user_json);
-	db_user.create_user(user_id, user);
-
-	user_json = create_user_json("Lilit", "Lilit");
-	user_id = user_json->getValue<std::string>("user_id");
-	user = stringify(user_json);
-	db_user.create_user(user_id, user);
+	test_create_chat();
+	test_search_chat();
+	test_delete_chat();
 
 	test_add_contact(user_id);
 	test_search_contact(user_id);
@@ -223,9 +269,6 @@ int main()
 	Poco::JSON::Object::Ptr chat_json = create_chat_json("Ani_Anna");
 	std::string chat_id = chat_json->getValue<std::string>("chat_id");
 	std::string chat = stringify(chat_json);
-	//test create chat 
-	messenger::database::chat_database_handler db_chat;
-	db_chat.create_chat(chat_id, chat);
 
 	test_add_participant(chat_id);
 	test_search_participant(chat_id);
