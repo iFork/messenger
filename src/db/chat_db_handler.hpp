@@ -36,7 +36,7 @@ namespace messenger {
 				 * create new file from given chat_id in db and write given chat data in that file
 				 * @param chat_id	identifier for chat
 				 * @param chat_data	chat data 	
-				 * @return 0 if successful, 1 otherwise
+				 * @return 0 if successful, -1 otherwise
 				 */
 				int create_chat(const std::string& chat_id, const std::string& chat_data) noexcept;
 			    
@@ -64,7 +64,7 @@ namespace messenger {
 				/**
 			     * @brief Delete chat from db
 				 * @param chat_id	identifier for chat
-				 * @return 0 if successful, 1 otherwise
+				 * @return 0 if successful, -1 otherwise
 				 */ 
 				int delete_chat(const std::string& chat_id) noexcept;
 				

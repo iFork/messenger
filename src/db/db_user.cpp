@@ -89,7 +89,7 @@ namespace messenger {
 
 					Poco::JSON::Object::Ptr db_entry = m_db_entry;
 					Poco::JSON::Parser parser;
-					Poco::Dynamic::Var result = parser.parse(db.read_user_data(user_id)); //using default ParseHandler
+					Poco::Dynamic::Var result = parser.parse(db.read_user_data(user_id));
 					m_db_entry = result.extract<Poco::JSON::Object::Ptr>();
 					if ((-1 != add_contact_helper(obj_user_id)) && (-1 != add_chat(get_chat_id(get_user_id(), obj_user_id)))) {
 						update_user_data(get_user_id());
@@ -127,7 +127,7 @@ namespace messenger {
 				
 					Poco::JSON::Object::Ptr db_entry = m_db_entry;
 					Poco::JSON::Parser parser;
-					Poco::Dynamic::Var result = parser.parse(db.read_user_data(user_id)); //using default ParseHandler
+					Poco::Dynamic::Var result = parser.parse(db.read_user_data(user_id));
 					m_db_entry = result.extract<Poco::JSON::Object::Ptr>();
 
 					if ((-1 != remove_contact_helper(obj_user_id)) && (-1 != remove_chat(get_chat_id(get_user_id(), obj_user_id)))) {
@@ -180,8 +180,20 @@ namespace messenger {
 		{
 			Poco::JSON::Object::Ptr chat_obj = new Poco::JSON::Object();
 			chat_obj->set("chat_id", chat_id);
-			Poco::JSON::Array participants = Poco::JSON::Array();
-			Poco::JSON::Array messages = Poco::JSON::Array();
+			Poco::JSON::Array::Ptr participants = new Poco::JSON::Array();
+			std::string user_id1 = "";
+			std::string user_id2 = "";
+			for (std::string::const_iterator it = chat_id.begin(); it != chat_id.end(); ++it) {
+				if ('_' == *it) {					
+					user_id2.append(++it, chat_id.end());
+					break;
+				} else {
+					user_id1 += *it;
+				}
+			}
+			participants->set(0, user_id1);
+			participants->set(1, user_id2);
+			Poco::JSON::Array::Ptr messages = new Poco::JSON::Array();
 			chat_obj->set("participants", participants);
 			chat_obj->set("messages", messages);
 			std::stringstream chat;
@@ -228,7 +240,7 @@ namespace messenger {
 			//remove chat in db
 			messenger::database::chat_database_handler db;
 			if (!db.search_chat(chat_id)) {
-				if (-1 != db.delete_chat(chat_id)) {
+				if (0 == db.delete_chat(chat_id)) {
 					if (-1 != remove_chat_helper(chat_id)) {
 						update_user_data(get_user_id());
 						return 0;

@@ -33,16 +33,17 @@ namespace messenger {
 			    
 			    /**
 			     * @brief Create new user with given user_id and user_name in db
-				 * create new file for user, write user data in file
+				 * create new file from given user_id in db and write given user data in that file
 				 * @param user_id	identifier for user
-				 * @param user_name	user name
+				 * @param user_data	user data
+				 * @return 0 if successful, -1 otherwise
 				 */
-				void create_user(const std::string& user_id, const std::string& user_name) noexcept;
+				int create_user(const std::string& user_id, const std::string& user_data) noexcept;
 			    
 				/**
 			     * @brief Get user data from db  
 				 * @param user_id	identifier for user
-				 * @return string containing information about user
+				 * @return string containing user data
 				 */
 				std::string read_user_data(const std::string& user_id) noexcept;
 				
@@ -63,7 +64,7 @@ namespace messenger {
 				/**
 			     * @brief Delete user from db
 				 * @param user_id	identifier for user
-				 * @return 0 if successful, 1 otherwise
+				 * @return 0 if successful, -1 otherwise
 				 */ 
 				int delete_user(const std::string& user_id) noexcept;
 				

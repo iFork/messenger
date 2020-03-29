@@ -33,17 +33,21 @@ namespace messenger {
 			m_filename.append(m_dirname).append("/").append(user_id).append(".json");
 		}
 
-		void user_database_handler::create_user(const std::string& user_id, const std::string& user_name) noexcept
+		int user_database_handler::create_user(const std::string& user_id, const std::string& user_data) noexcept
 		{
 			assert("" != user_id);
-			assert("" != user_name);
+			assert("" != user_data);
 			set_filename(user_id);
-			std::ofstream file;
-			file.open(get_filename());
-			assert(!file.fail());
-			file << user_name;
-			file.close();
-			assert(!file.fail());
+			if (!search_user(user_id)) {
+				std::ofstream file;
+				file.open(get_filename());
+				assert(!file.fail());
+				file << user_data;
+				file.close();
+				assert(!file.fail());
+					return 0;
+			}
+			return -1;
 		}
 		
 		std::string user_database_handler::read_user_data(const std::string& user_id) noexcept
@@ -88,9 +92,7 @@ namespace messenger {
 		int user_database_handler::delete_user(const std::string& user_id) noexcept
 		{
 			set_filename(user_id);
-			if (remove(get_filename().c_str()))
-				return 0;
-			return 1;
+			return remove(get_filename().c_str());
 		}
 	}
 }

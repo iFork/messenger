@@ -89,8 +89,7 @@ namespace messenger {
 				 * otherwise return status
 				 * @param msg_id identifier for msg
 				 * @param msg	message
-				 * @return 0	if successful
-				 * @return -1	otherwise
+				 * @return status   0 successful, -1 otherwise
  				 */
 				int add_message(const std::string& msg_id, const std::string& msg) noexcept;
 				
@@ -100,8 +99,7 @@ namespace messenger {
 				 * update corresponding chat file in db 
 				 * otherwise return status
 				 * @param msg_d	identifier for msg
-				 * @return 0	if successful
-				 * @return -1	otherwise
+				 * @return status   0 successful, -1 otherwise
  				 */
 				int remove_message(const std::string& msg_id, const std::string& msg) noexcept;
 			

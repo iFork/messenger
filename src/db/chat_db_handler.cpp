@@ -111,10 +111,7 @@ namespace messenger {
 		int chat_database_handler::delete_chat(const std::string& chat_id) noexcept
 		{
 			set_filename(chat_id);
-			if (search_chat(chat_id)) {
-				return remove(get_filename().c_str());
-			}			
-			return -1;
+			return remove(get_filename().c_str());
 		}
 	}
 }
