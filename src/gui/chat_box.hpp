@@ -24,21 +24,16 @@ class QPushButton;
 class QLabel;
 
 /**
- *@brief Definition of class ChatterBox
- * It display the interface of the main window
+ * @brief Definition of class chat_box
+ * It displays the interface of the main window
  * with the logged in user's data (user name, messages)
- * It gives opportunity to send/receive  messages with the other user.
+ * It gives opportunity to send/receive  messages to/from other users.
  * There are many other options that can be implemented request later on.
  */
 
-class ChatBox: public QWidget
+class chat_box: public QWidget
 {
     Q_OBJECT
-    public:
-    //Constructor
-    ChatBox(QWidget* parent = Q_NULLPTR);
-    ///Destructor
-    ~ChatBox(){};
     private:
         QGridLayout* m_glayout;
         QMenuBar* m_menu_bar;
@@ -57,6 +52,31 @@ class ChatBox: public QWidget
         QLabel* m_gallery;
         QLabel* m_attach;
         QLabel* m_smile;
+    public:
+    /**
+     * @brief constructor
+     */
+    chat_box(QWidget* parent = Q_NULLPTR);
+    /**
+     * @brief prevent copy constructor
+     */
+    chat_box(const chat_box&) = delete;
+     /**
+     * @brief prevent assignment operator
+     */
+    chat_box& operator=(const chat_box&) = delete;
+    /**
+     * @brief prevent move constructor
+     */
+    chat_box(const chat_box&&) = delete;
+    /**
+     * @brief prevent move assignment operator
+     */
+    chat_box& operator=(const chat_box&&) = delete;
+    /**
+     * @brief destructor
+     */
+    ~chat_box(){};
 };
 
 #endif // CHAT_BOX

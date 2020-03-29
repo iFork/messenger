@@ -1,5 +1,5 @@
 /**
- * @file /chat_box.hpp
+ * @file chat_box.hpp
  *
  * @author ITC students, 2020
  * E-mail: xxx@xxx.xxx
@@ -24,17 +24,17 @@
 #include <QFrame>
 
 // it will be removed as soon as the users' list
-// with add/remove option will be implemented
+// with add/remove options will be implemented
 const int FRIENDS_COUNT = 30;
 
 /**
- * ChatBox constructor that displays the interface of the main window
+ * chat_box constructor that displays the interface of the main window
  * of the logged in user's data (user name, messages).
- * It gives opportunity to send/receive  messages with the other user.
+ * It gives opportunity to send/receive  messages to/from other users.
  * There are many other options that can be implemented by request later on.
  */
 
-ChatBox::ChatBox(QWidget* parent): QWidget(parent)
+chat_box::chat_box(QWidget* parent): QWidget(parent)
 {
     m_glayout = new QGridLayout(this);
     m_menu_bar = new QMenuBar(this);
