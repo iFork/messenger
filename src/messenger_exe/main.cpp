@@ -21,9 +21,6 @@
 
 int main(int argc, char* argv[])
 {
-	// checking parsers work (should be deleted)
-	//
-	checking_parser_work();
 	// opens the chat window
 	//
     QApplication app(argc, argv);
