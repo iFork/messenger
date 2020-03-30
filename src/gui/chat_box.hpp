@@ -15,6 +15,8 @@
 #include <QWidget>
 
 // Forward declarations
+class QStandardItemModel;
+class QListView;
 class QGridLayout;
 class QMenuBar;
 class QMenu;
@@ -35,6 +37,8 @@ class chat_box: public QWidget
 {
     Q_OBJECT
     private:
+        QStandardItemModel* m_chat_model;
+        QListView* m_chat_view;
         QGridLayout* m_glayout;
         QMenuBar* m_menu_bar;
         QMenu* m_file_menu;
@@ -52,31 +56,34 @@ class chat_box: public QWidget
         QLabel* m_gallery;
         QLabel* m_attach;
         QLabel* m_smile;
+    private slots:
+        void send_message();
+        void recieve_message(const std::string& user, const std::string& message);
     public:
-    /**
-     * @brief constructor
-     */
-    chat_box(QWidget* parent = Q_NULLPTR);
-    /**
-     * @brief prevent copy constructor
-     */
-    chat_box(const chat_box&) = delete;
-     /**
-     * @brief prevent assignment operator
-     */
-    chat_box& operator=(const chat_box&) = delete;
-    /**
-     * @brief prevent move constructor
-     */
-    chat_box(const chat_box&&) = delete;
-    /**
-     * @brief prevent move assignment operator
-     */
-    chat_box& operator=(const chat_box&&) = delete;
-    /**
-     * @brief destructor
-     */
-    ~chat_box(){};
+        /**
+         * @brief constructor
+         */
+        chat_box(QWidget* parent = Q_NULLPTR);
+        /**
+         * @brief prevent copy constructor
+         */
+        chat_box(const chat_box&) = delete;
+        /**
+         * @brief prevent assignment operator
+         */
+        chat_box& operator=(const chat_box&) = delete;
+        /**
+         * @brief prevent move constructor
+         */
+        chat_box(const chat_box&&) = delete;
+        /**
+         * @brief prevent move assignment operator
+         */
+        chat_box& operator=(const chat_box&&) = delete;
+        /**
+         * @brief destructor
+         */
+        ~chat_box(){};
 };
 
 #endif // CHAT_BOX
