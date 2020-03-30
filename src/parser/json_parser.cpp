@@ -100,9 +100,9 @@ namespace messenger {
 						   std::string& json_format) noexcept
 		{
 			/// @brief opening ".txt" file for reading
-			file_reader f("../../txt_files/file.txt");
+			file_reader f("./txt_files/file.txt");
 			/// @brief reading from ".txt" while true 
-			while(f.read_row(file)) {//read_from_file(f, file)) {
+			while(f.read_row(file)) {
 				/// @brief writing to ".json" file
 				w.write_json(file);
 				json_format = file;
@@ -123,16 +123,15 @@ namespace messenger {
 			Poco::JSON::Parser parse_from;
 
 			/// @brief file_writer class prepares the file for writing
-			messenger::parser::file_writer w("../../json_files/w_file.json");
+			file_writer w("./json_files/w_file.json");
 			/// @brief read_write_to_file reading for ".txt" file and
 			///		   writing to ".json" file at the same time
 			/// @param [in] w the file where to write
 			/// @param [in] file the read row
 			/// @param [out] json_file written row to file
-			messenger::parser::read_write_to_file(w, file, json_file);
+			read_write_to_file(w, file, json_file);
 			/// @brief parsing to json and get the results
-			Poco::Dynamic::Var parsing_to_json = parse_from.parse(json_file);
-			Poco::Dynamic::Var parsed_json_result = parse_from.result();
+			Poco::Dynamic::Var parsed_json_result =	parse_from.parse(json_file);
 
 			/// @brief exception ot json object
 			json_object_value = parsed_json_result.extract<Poco::JSON::Object::Ptr>();

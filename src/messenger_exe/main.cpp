@@ -9,7 +9,7 @@
  */
 
 // includes from this project
-#include "parser/json_parser.hpp"
+#include "../parser/json_parser.hpp"
 #include "gui/main_window.hpp"
 #include "client/client.hpp"
 
@@ -21,6 +21,8 @@
 
 int main(int argc, char* argv[])
 {
+	Poco::JSON::Object::Ptr json_object_value;
+	messenger::parser::parsing_from_txt_to_json(json_object_value);
 	// opens the chat window
 	//
     QApplication app(argc, argv);

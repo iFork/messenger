@@ -1,5 +1,31 @@
 /**
- * @file json_parser.hpp "json_parser.hpp"
+ * -*-	A parser for reading from ".txt" json format string or stream.	-*-
+ *
+ * Simple usage example:
+ *
+ * std::string json = {"user_id":"000000","user_name":"AAAAAA","password":"222222","conversation_id":"33333","group_id":"444444"}
+ *
+ * @warning you shoulde use specified namespace
+ * 
+ * int main(int argc, char** argv) {
+ * 		Poco::JSON::Object::Ptr& json;
+ *		parsing_from_txt_to_json(json);
+ *		return 0;
+ * }
+ * 
+ *  ----
+ * and you can see parser result in w_file.json
+ * 
+ *  The result of parsing a valid JSON document will be either an Object
+ *  or an Array. Therefore the result of parsing_from_txt_to_json(json) is a
+ *  Poco::Dynamic::Var.
+ *  And you can get the key you need with
+ *  get_value(std::string key, Poco::JSON::Object::Ptr& value)
+ *  ----
+ */
+
+/**
+ * @file json_parser.hpp
  * @brief Common declaration for the Json Parser library
  * @details This library is parsing the ".txt" format file to ".json" format
  * 			and returns the value of given key's.
@@ -34,7 +60,6 @@ namespace messenger {
 				/// @brief Special Member Function
 			public:
 				/// @brief This method is reading string row
-				/// @param [in] row contains row of string
 				bool read_row(std::string& row) noexcept;
 			private:
 				/// @brief This class is not default-constructible 
@@ -68,10 +93,8 @@ namespace messenger {
 				/// @brief Special Member Functions
 			public:
 				/// @brief This method is writing symbols such as "\n etc."
-				/// @param [out] symbol which is used as end of line
 				bool write_symbol(char symbol) noexcept;
 				/// @brief This method is writing json to file
-				/// @param [out] json contains row of json
 				bool write_json(std::string& json) noexcept;
 			private:
 				/// @brief This class is not default-constructible 
@@ -94,25 +117,15 @@ namespace messenger {
 		};
 
 		/// @brief This function is writing to file
-		/// @param [in] w opens file for writing
-		/// @param [in] file reads and writs to file
-		/// @param [out] json_format written file
-		/// @return true if read from file and write to
-		///			file was successful or false if not
 		bool
 		read_write_to_file(file_writer& w, std::string file,
 						   std::string& json_format) noexcept;
 
 		/// @brief This function is parsing from ".txt" to ".json" format
-		/// @param [in] json_object_value tackes the argument by reference
-		///				and extracts the json object for further use
 		void
 		parsing_from_txt_to_json(Poco::JSON::Object::Ptr& json_object_value) noexcept;
 
 		/// @brief This function takes the key and returns it's value
-		/// @param [in] key_from_json the key in file
-		/// @param [out] json_object_value the value of given key
-		/// @return string after converting from Poco::Dynamic::Var
 		std::string
 		get_value(std::string key_from_json,
 				  Poco::JSON::Object::Ptr& json_object_value) noexcept;
